@@ -15,8 +15,20 @@ height = 0.25
 [sub_resource type="BoxMesh" id="BoxMesh_ucl8h"]
 size = Vector3(0.4, 2, 0.4)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_egj8t"]
+size = Vector3(0.4, 2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e2m7y"]
+size = Vector3(0.5, 1.8, 0.5)
+
 [sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
 size = Vector3(0.45, 2.5, 0.45)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
+size = Vector3(0.46, 2.5, 0.46)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ucl8h"]
+size = Vector3(0.5, 1.8, 0.5)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_egj8t"]
 top_radius = 1.0
@@ -32,9 +44,9 @@ script = ExtResource("1_g3pw0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 mesh = SubResource("CylinderMesh_ucl8h")
 
-[node name="Arm" type="MeshInstance3D" parent="Base/Shoulder" unique_id=2131918515]
+[node name="Arm" type="Node3D" parent="Base/Shoulder" unique_id=1567128330]
 
-[node name="Elbow" type="MeshInstance3D" parent="Base/Shoulder/Arm" unique_id=2141584984]
+[node name="Elbow" type="Node3D" parent="Base/Shoulder/Arm" unique_id=2032113764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 
 [node name="Magnet" type="MeshInstance3D" parent="Base/Shoulder/Arm/Elbow" unique_id=1617388785]
@@ -52,9 +64,35 @@ shape = SubResource("SphereShape3D_anhtn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("BoxMesh_ucl8h")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm/Elbow" unique_id=1440017772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_egj8t")
+
+[node name="ForearmCollisionDetector" type="Area3D" parent="Base/Shoulder/Arm/Elbow" unique_id=230418666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.1, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm/Elbow/ForearmCollisionDetector" unique_id=1736564473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0594683, 0)
+shape = SubResource("BoxShape3D_e2m7y")
+
 [node name="ArmMesh" type="MeshInstance3D" parent="Base/Shoulder/Arm" unique_id=1304836077]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 mesh = SubResource("BoxMesh_anhtn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm" unique_id=144897982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("BoxShape3D_anhtn")
+
+[node name="ArmCollisionDetector" type="Area3D" parent="Base/Shoulder/Arm" unique_id=571112478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm/ArmCollisionDetector" unique_id=847128922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1001542, 0)
+shape = SubResource("BoxShape3D_ucl8h")
 
 [node name="BaseMesh" type="MeshInstance3D" parent="Base" unique_id=1757215795]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
