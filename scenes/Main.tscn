@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://b772k5isyb3db" path="res://scripts/target_zone.gd" id="2_rvslj"]
 [ext_resource type="PackedScene" uid="uid://3fwlam1tv6kw" path="res://scenes/Shelf.tscn" id="3_0bbpv"]
 [ext_resource type="PackedScene" uid="uid://su84xv5wcvri" path="res://scenes/Wall.tscn" id="4_rarhs"]
+[ext_resource type="Script" uid="uid://dntj85681g2ql" path="res://scripts/level_manager.gd" id="5_vcsgt"]
+[ext_resource type="Script" uid="uid://c7bdvllxyv7gi" path="res://scripts/hud.gd" id="6_c01mt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_egj8t"]
 size = Vector3(40, 0.2, 40)
@@ -15,15 +17,15 @@ roughness = 0.8
 [sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
 size = Vector3(40, 0.2, 40)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ucl8h"]
+size = Vector3(3, 0.1, 4)
+
 [sub_resource type="BoxMesh" id="BoxMesh_egj8t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ucl8h"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
-size = Vector3(2, 0.5, 2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ucl8h"]
-size = Vector3(2, 0.1, 2)
 
 [node name="Main" type="Node3D" unique_id=844569944]
 
@@ -40,24 +42,16 @@ mesh = SubResource("BoxMesh_anhtn")
 transform = Transform3D(0.8660254, 0.28678823, -0.40957603, 0, 0.81915206, 0.57357645, 0.5, -0.49673176, 0.7094065, 0, 19.356438, 4.2273293)
 
 [node name="PlayerVehicle" parent="." unique_id=1090934575 instance=ExtResource("1_elqb8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.617)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.265467, 0.5, 11.658884)
 
 [node name="Camera" type="Camera3D" parent="PlayerVehicle" unique_id=636648059]
 transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, -1.2077818, 4.5, 7.1989646)
 
-[node name="PickupObject" type="RigidBody3D" parent="." unique_id=637285970 groups=["pickupable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.571682, -3.9283562)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PickupObject" unique_id=1975710380]
-mesh = SubResource("BoxMesh_egj8t")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupObject" unique_id=470904614]
-shape = SubResource("BoxShape3D_ucl8h")
-
-[node name="DeliveryZone" type="Area3D" parent="." unique_id=88359160]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.227537, 0, 7.169279)
+[node name="DeliveryZone" type="Area3D" parent="." unique_id=88359160 groups=["delivery_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.594065, 0, 17.965302)
 
 [node name="Area3D" type="Area3D" parent="DeliveryZone" unique_id=223257205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30876732, 0, -0.7524376)
 script = ExtResource("2_rvslj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeliveryZone/Area3D" unique_id=464905400]
@@ -66,18 +60,6 @@ shape = SubResource("BoxShape3D_anhtn")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DeliveryZone/Area3D/CollisionShape3D" unique_id=59058950]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 mesh = SubResource("BoxMesh_ucl8h")
-
-[node name="PickupObject2" type="RigidBody3D" parent="." unique_id=819926754 groups=["pickupable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.062338, 7.143364, -7.8567123)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PickupObject2" unique_id=926498675]
-mesh = SubResource("BoxMesh_egj8t")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupObject2" unique_id=1449922010]
-shape = SubResource("BoxShape3D_ucl8h")
-
-[node name="Shelf" parent="." unique_id=382349755 instance=ExtResource("3_0bbpv")]
-transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, -8.414793, 0.10000038, -7.7727156)
 
 [node name="inside_walls" type="Node3D" parent="." unique_id=1188819669]
 
@@ -98,6 +80,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.681, 2, -5.704)
 
 [node name="Wall6" parent="inside_walls" unique_id=91738974 instance=ExtResource("4_rarhs")]
 transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, -11.273911, 2, 8.617884)
+
+[node name="Wall7" parent="inside_walls" unique_id=383084364 instance=ExtResource("4_rarhs")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10.671, 2, -5.573)
+
+[node name="Wall8" parent="inside_walls" unique_id=594582324 instance=ExtResource("4_rarhs")]
+transform = Transform3D(-4.3711385e-08, 0, 0.9999999, 0, 1, 0, -0.9999999, 0, -4.3711385e-08, -0.57524824, 2, -5.556715)
 
 [node name="side_walls" type="Node3D" parent="." unique_id=501591023]
 
@@ -159,5 +147,95 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -4.9725623)
 
 [node name="Wall5" parent="side_walls/side_wall_4" unique_id=464467104 instance=ExtResource("4_rarhs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -14.963183)
+
+[node name="LevelManager" type="Node" parent="." unique_id=852423944 groups=["level_manager"]]
+script = ExtResource("5_vcsgt")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1796250169]
+script = ExtResource("6_c01mt")
+
+[node name="LevelLabel" type="Label" parent="HUD" unique_id=1007351388]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 123.0
+offset_bottom = 53.0
+text = "LEVEL 1
+BOXES: 0 / 1
+TIME: 180"
+
+[node name="MissionMessage" type="Label" parent="HUD" unique_id=1131388827]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="pickup_boxes" type="Node" parent="." unique_id=127735330]
+
+[node name="PickupObject2" type="RigidBody3D" parent="pickup_boxes" unique_id=803597112 groups=["pickup_boxes", "pickupable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.062338, 1.0525274, 2.820898)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pickup_boxes/PickupObject2" unique_id=1445389652]
+mesh = SubResource("BoxMesh_egj8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pickup_boxes/PickupObject2" unique_id=1446025509]
+shape = SubResource("BoxShape3D_ucl8h")
+
+[node name="PickupObject3" type="RigidBody3D" parent="pickup_boxes" unique_id=1435746404 groups=["pickup_boxes", "pickupable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.067159, 0.94118977, 14.51631)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pickup_boxes/PickupObject3" unique_id=1055726937]
+mesh = SubResource("BoxMesh_egj8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pickup_boxes/PickupObject3" unique_id=615648522]
+shape = SubResource("BoxShape3D_ucl8h")
+
+[node name="PickupObject4" type="RigidBody3D" parent="pickup_boxes" unique_id=1690231262 groups=["pickup_boxes", "pickupable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.263517, 1.8823795, 9.072929)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pickup_boxes/PickupObject4" unique_id=1362214597]
+mesh = SubResource("BoxMesh_egj8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pickup_boxes/PickupObject4" unique_id=618450848]
+shape = SubResource("BoxShape3D_ucl8h")
+
+[node name="PickupObject5" type="RigidBody3D" parent="pickup_boxes" unique_id=551041805 groups=["pickup_boxes", "pickupable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6712265, 3.764759, 16.002493)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pickup_boxes/PickupObject5" unique_id=767645001]
+mesh = SubResource("BoxMesh_egj8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pickup_boxes/PickupObject5" unique_id=2142331996]
+shape = SubResource("BoxShape3D_ucl8h")
+
+[node name="PickupObject" type="RigidBody3D" parent="pickup_boxes" unique_id=637285970 groups=["pickup_boxes", "pickupable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.571682, -3.9283562)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pickup_boxes/PickupObject" unique_id=1975710380]
+mesh = SubResource("BoxMesh_egj8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pickup_boxes/PickupObject" unique_id=470904614]
+shape = SubResource("BoxShape3D_ucl8h")
+
+[node name="Node" type="Node" parent="." unique_id=330808473]
+
+[node name="Shelf2" parent="Node" unique_id=382349755 instance=ExtResource("3_0bbpv")]
+transform = Transform3D(-1.5, 0, 2.2649371e-07, 0, 1.5, 0, -2.2649371e-07, 0, -1.5, -7.496, 0, -18.973)
+
+[node name="Shelf" parent="Node" unique_id=911806481 instance=ExtResource("3_0bbpv")]
+transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, -19.155, 0, -15.361096)
+
+[node name="Shelf3" parent="Node" unique_id=233212842 instance=ExtResource("3_0bbpv")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -9.082, 0, 19.243002)
+
+[node name="Shelf3" parent="Node/Shelf3" unique_id=973722189 instance=ExtResource("3_0bbpv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05079317, 0, -7.6218762)
 
 [connection signal="body_entered" from="DeliveryZone/Area3D" to="DeliveryZone/Area3D" method="_on_body_entered"]
