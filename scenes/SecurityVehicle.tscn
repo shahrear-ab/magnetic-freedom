@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dwyi1ykn37exo"]
+
+[ext_resource type="Script" uid="uid://cv3yeu26l75qk" path="res://scripts/security_vehicle.gd" id="1_5qi15"]
+[ext_resource type="Script" uid="uid://v2bb1fljf4p0" path="res://scripts/security_detection_zone.gd" id="1_c4p26"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
+size = Vector3(2.5, 1.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
+size = Vector3(2.5, 0.8, 4)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_anhtn"]
+radius = 5.0
+
+[node name="SecurityVehicle" type="CharacterBody3D" unique_id=2097209217 groups=["security_vehicle"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("1_5qi15")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1446992772]
+mesh = SubResource("BoxMesh_anhtn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=762016329]
+shape = SubResource("BoxShape3D_anhtn")
+
+[node name="SecurityDetectionZone" type="Area3D" parent="." unique_id=987647679]
+collision_layer = 2
+script = ExtResource("1_c4p26")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecurityDetectionZone" unique_id=221647577]
+shape = SubResource("SphereShape3D_anhtn")
