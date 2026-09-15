@@ -3,6 +3,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
 size = Vector3(0.3, 4, 10)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_af1rm"]
+albedo_color = Color(0.6392157, 1, 1, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
 size = Vector3(0.3, 4, 10)
 
@@ -12,4 +15,5 @@ size = Vector3(0.3, 4, 10)
 shape = SubResource("BoxShape3D_anhtn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1408998335]
+material_override = SubResource("StandardMaterial3D_af1rm")
 mesh = SubResource("BoxMesh_anhtn")

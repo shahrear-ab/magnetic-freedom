@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ditngm20708bd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qi15"]
+albedo_color = Color(0.8164049, 0.5178988, 3.85046e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_egj8t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ucl8h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qjb2"]
+albedo_color = Color(1, 0.019607844, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_anhtn"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.08
+
+[node name="PickupObject" type="RigidBody3D" unique_id=765094423 groups=["pickup_boxes", "pickupable"]]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=469309912]
+material_override = SubResource("StandardMaterial3D_5qi15")
+mesh = SubResource("BoxMesh_egj8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=342799999]
+shape = SubResource("BoxShape3D_ucl8h")
+
+[node name="MagnetPoint" type="Node3D" parent="." unique_id=161415360]
+
+[node name="MagnetMesh" type="MeshInstance3D" parent="MagnetPoint" unique_id=2003044554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54062855, 0)
+material_override = SubResource("StandardMaterial3D_1qjb2")
+mesh = SubResource("CylinderMesh_anhtn")

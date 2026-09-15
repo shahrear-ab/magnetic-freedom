@@ -3,11 +3,17 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_nf23d"]
 size = Vector3(3.1, 0.16, 0.9)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8u5g"]
+albedo_color = Color(0.49803922, 0.20784314, 0.023529412, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_ucl8h"]
 size = Vector3(3, 0.15, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_egj8t"]
 size = Vector3(3.1, 0.16, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lhr70"]
+albedo_color = Color(0.49803922, 0.20784314, 0.023529412, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_e2m7y"]
 size = Vector3(3, 0.15, 0.8)
@@ -15,14 +21,23 @@ size = Vector3(3, 0.15, 0.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yvbur"]
 size = Vector3(3.1, 0.16, 0.9)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wp0k4"]
+albedo_color = Color(0.49803922, 0.20784314, 0.023529412, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_xysun"]
 size = Vector3(3, 0.15, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wcknk"]
 size = Vector3(0.15, 3.2, 0.15)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmy6f"]
+albedo_color = Color(0.49803922, 0.26666668, 0.023529412, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_gfpni"]
 size = Vector3(0.15, 3.2, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjd11"]
+albedo_color = Color(0.49803922, 0.26666668, 0.023529412, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_yqyos"]
 size = Vector3(0.15, 3.2, 0.15)
@@ -37,6 +52,7 @@ collision_layer = 3
 shape = SubResource("BoxShape3D_nf23d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Shelf_1" unique_id=570529234]
+material_override = SubResource("StandardMaterial3D_q8u5g")
 mesh = SubResource("BoxMesh_ucl8h")
 
 [node name="Shelf_2" type="StaticBody3D" parent="." unique_id=1806190020]
@@ -47,6 +63,7 @@ collision_layer = 3
 shape = SubResource("BoxShape3D_egj8t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Shelf_2" unique_id=728373368]
+material_override = SubResource("StandardMaterial3D_lhr70")
 mesh = SubResource("BoxMesh_e2m7y")
 
 [node name="Shelf_3" type="StaticBody3D" parent="." unique_id=649319171]
@@ -57,6 +74,7 @@ collision_layer = 3
 shape = SubResource("BoxShape3D_yvbur")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Shelf_3" unique_id=426186488]
+material_override = SubResource("StandardMaterial3D_wp0k4")
 mesh = SubResource("BoxMesh_xysun")
 
 [node name="Support_Left" type="StaticBody3D" parent="." unique_id=1680547660]
@@ -67,6 +85,7 @@ collision_layer = 3
 shape = SubResource("BoxShape3D_wcknk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Support_Left" unique_id=1151570104]
+material_override = SubResource("StandardMaterial3D_qmy6f")
 mesh = SubResource("BoxMesh_gfpni")
 
 [node name="Support_Right" type="StaticBody3D" parent="." unique_id=949023160]
@@ -77,4 +96,5 @@ collision_layer = 3
 shape = SubResource("BoxShape3D_wcknk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Support_Right" unique_id=474413925]
+material_override = SubResource("StandardMaterial3D_bjd11")
 mesh = SubResource("BoxMesh_yqyos")

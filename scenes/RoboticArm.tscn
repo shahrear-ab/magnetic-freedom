@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://c7oov834tuitp" path="res://scripts/robotic_arm.gd" id="1_g3pw0"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8p3ow"]
+albedo_color = Color(0, 0.6745098, 0.69803923, 0.39215687)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_ucl8h"]
 height = 1.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_yqyos"]
-top_radius = 0.35
-bottom_radius = 0.35
-height = 0.25
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_anhtn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqb2d"]
+albedo_color = Color(0, 0.6745098, 0.69803923, 0.39215687)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ucl8h"]
 size = Vector3(0.4, 2, 0.4)
@@ -21,6 +20,19 @@ size = Vector3(0.4, 2, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2m7y"]
 size = Vector3(0.5, 1.8, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8u5g"]
+albedo_color = Color(0.23529412, 0.03529412, 0.7411765, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yqyos"]
+top_radius = 0.35
+bottom_radius = 0.35
+height = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_anhtn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o4xs2"]
+albedo_color = Color(0, 0.6745098, 0.69803923, 0.39215687)
+
 [sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
 size = Vector3(0.45, 2.5, 0.45)
 
@@ -29,6 +41,9 @@ size = Vector3(0.46, 2.5, 0.46)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ucl8h"]
 size = Vector3(0.5, 1.8, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfnbg"]
+albedo_color = Color(0, 0.58431375, 0.69803923, 0.39215687)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_egj8t"]
 top_radius = 1.0
@@ -42,6 +57,7 @@ script = ExtResource("1_g3pw0")
 
 [node name="Shoulder" type="MeshInstance3D" parent="Base" unique_id=221955209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+material_override = SubResource("StandardMaterial3D_8p3ow")
 mesh = SubResource("CylinderMesh_ucl8h")
 
 [node name="Arm" type="Node3D" parent="Base/Shoulder" unique_id=1567128330]
@@ -49,19 +65,9 @@ mesh = SubResource("CylinderMesh_ucl8h")
 [node name="Elbow" type="Node3D" parent="Base/Shoulder/Arm" unique_id=2032113764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 
-[node name="Magnet" type="MeshInstance3D" parent="Base/Shoulder/Arm/Elbow" unique_id=1617388785]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="MagnetMesh" type="MeshInstance3D" parent="Base/Shoulder/Arm/Elbow/Magnet" unique_id=449578201]
-mesh = SubResource("CylinderMesh_yqyos")
-
-[node name="MagnetAera" type="Area3D" parent="Base/Shoulder/Arm/Elbow/Magnet" unique_id=1865115595]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm/Elbow/Magnet/MagnetAera" unique_id=2003014501]
-shape = SubResource("SphereShape3D_anhtn")
-
 [node name="ForearmMesh" type="MeshInstance3D" parent="Base/Shoulder/Arm/Elbow" unique_id=717245646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_uqb2d")
 mesh = SubResource("BoxMesh_ucl8h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm/Elbow" unique_id=1440017772]
@@ -77,8 +83,24 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0594683, 0)
 shape = SubResource("BoxShape3D_e2m7y")
 
+[node name="MagnetPivot" type="Node3D" parent="Base/Shoulder/Arm/Elbow" unique_id=148172199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0794091, 0)
+
+[node name="Magnet" type="MeshInstance3D" parent="Base/Shoulder/Arm/Elbow/MagnetPivot" unique_id=1617388785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.055069447, 0)
+
+[node name="MagnetMesh" type="MeshInstance3D" parent="Base/Shoulder/Arm/Elbow/MagnetPivot/Magnet" unique_id=449578201]
+material_override = SubResource("StandardMaterial3D_q8u5g")
+mesh = SubResource("CylinderMesh_yqyos")
+
+[node name="MagnetAera" type="Area3D" parent="Base/Shoulder/Arm/Elbow/MagnetPivot/Magnet" unique_id=1865115595]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm/Elbow/MagnetPivot/Magnet/MagnetAera" unique_id=2003014501]
+shape = SubResource("SphereShape3D_anhtn")
+
 [node name="ArmMesh" type="MeshInstance3D" parent="Base/Shoulder/Arm" unique_id=1304836077]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_o4xs2")
 mesh = SubResource("BoxMesh_anhtn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Shoulder/Arm" unique_id=144897982]
@@ -96,6 +118,7 @@ shape = SubResource("BoxShape3D_ucl8h")
 
 [node name="BaseMesh" type="MeshInstance3D" parent="Base" unique_id=1757215795]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+material_override = SubResource("StandardMaterial3D_gfnbg")
 mesh = SubResource("CylinderMesh_egj8t")
 
-[connection signal="body_entered" from="Base/Shoulder/Arm/Elbow/Magnet/MagnetAera" to="." method="_on_magnet_aera_body_entered"]
+[connection signal="body_entered" from="Base/Shoulder/Arm/Elbow/MagnetPivot/Magnet/MagnetAera" to="." method="_on_magnet_aera_body_entered"]

@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cv3yeu26l75qk" path="res://scripts/security_vehicle.gd" id="1_5qi15"]
 [ext_resource type="Script" uid="uid://v2bb1fljf4p0" path="res://scripts/security_detection_zone.gd" id="1_c4p26"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6k1vx"]
+albedo_color = Color(4.0911138e-07, 0.35998505, 0.44561863, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
 size = Vector3(2.5, 1.5, 4)
 
@@ -17,6 +20,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_5qi15")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=1446992772]
+material_override = SubResource("StandardMaterial3D_6k1vx")
 mesh = SubResource("BoxMesh_anhtn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=762016329]
