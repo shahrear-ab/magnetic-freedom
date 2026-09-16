@@ -31,32 +31,12 @@ extends Node3D
 # ==================================================
 # PICKUP SETTINGS
 # ==================================================
-#
-# PICKUP REQUIRES BOTH:
-#
-# 1. MAGNETS ARE PHYSICALLY CLOSE
-# 2. MAGNETS ARE ANGULARLY ALIGNED
-#
-# Distance is NOT alignment.
-# It simply defines the physical pickup range.
-#
-# Smaller distance = harder pickup
-# Larger distance = easier pickup
-# ==================================================
 
-@export var pickup_distance: float = 1
+@export var pickup_distance: float = 1.0
 
 
 # ==================================================
 # ANGULAR ALIGNMENT
-# ==================================================
-#
-# This is the actual rotational alignment requirement.
-#
-# 15 degrees = fairly easy
-# 10 degrees = harder
-# 5 degrees  = precise
-# 1 degree  = extremely precise
 # ==================================================
 
 @export var magnet_alignment_tolerance: float = 15.0
@@ -75,9 +55,7 @@ const MAGNET_GAP: float = 0.02
 # ARM REFERENCES
 # ==================================================
 
-@onready var arm = (
-	$Base/Shoulder/Arm
-)
+@onready var arm = $Base/Shoulder/Arm
 
 @onready var elbow = (
 	$Base/Shoulder/Arm/Elbow
@@ -122,12 +100,29 @@ var picked_object: Node3D = null
 
 
 # ==================================================
+# SAVED COLLISION SETTINGS
+# ==================================================
+#
+# Each picked object gets its own saved collision
+# settings.
+#
+# This is safer than having only one global
+# collision_layer / collision_mask pair.
+#
+# ==================================================
+
+var saved_collision_settings: Dictionary = {}
+
+
+# ==================================================
 # READY
 # ==================================================
 
 func _ready():
 
+	print("================================")
 	print("ROBOTIC ARM READY")
+	print("================================")
 
 	arm_collision_detector.monitoring = true
 	forearm_collision_detector.monitoring = true
@@ -165,6 +160,8 @@ func _physics_process(delta):
 			arm_max_angle
 		)
 
+		# Check collision
+
 		if arm_collision_detector.has_overlapping_bodies():
 
 			arm.rotation_degrees.x = old_rotation
@@ -197,6 +194,8 @@ func _physics_process(delta):
 			elbow_max_angle
 		)
 
+		# Check collision
+
 		if forearm_collision_detector.has_overlapping_bodies():
 
 			elbow.rotation_degrees.x = old_rotation
@@ -227,12 +226,18 @@ func _physics_process(delta):
 
 
 	# ==================================================
-	# KEEP BOX ATTACHED
+	# KEEP PICKED OBJECT ATTACHED
 	# ==================================================
 
 	if picked_object != null:
 
-		align_picked_object()
+		if is_instance_valid(picked_object):
+
+			align_picked_object()
+
+		else:
+
+			picked_object = null
 
 
 # ==================================================
@@ -301,7 +306,7 @@ func control_magnet(delta):
 
 
 # ==================================================
-# GET BOX MAGNET POINT
+# GET OBJECT MAGNET POINT
 # ==================================================
 
 func get_object_magnet_point(
@@ -313,10 +318,8 @@ func get_object_magnet_point(
 		return null
 
 
-	var magnet_point = (
-		object.get_node_or_null(
-			"MagnetPoint"
-		)
+	var magnet_point = object.get_node_or_null(
+		"MagnetPoint"
 	)
 
 
@@ -329,27 +332,7 @@ func get_object_magnet_point(
 
 
 # ==================================================
-# CALCULATE ANGULAR ALIGNMENT
-# ==================================================
-#
-# THIS IS THE ROTATIONAL ALIGNMENT CHECK.
-#
-# We compare the LOCAL Y axes of:
-#
-# ARM MAGNET
-#       VS
-# BOX MAGNET POINT
-#
-# 0 degrees = aligned
-# 5 degrees = very close
-# 15 degrees = allowed
-# 90 degrees = perpendicular
-#
-# abs() means the two axes can point in opposite
-# directions while still being considered aligned.
-#
-# This is useful because the two magnetic faces
-# ultimately face each other.
+# CALCULATE MAGNET ALIGNMENT
 # ==================================================
 
 func get_magnet_alignment_angle(
@@ -380,7 +363,7 @@ func get_magnet_alignment_angle(
 
 
 	# ==================================================
-	# COMPARE ANGLES
+	# DOT PRODUCT
 	# ==================================================
 
 	var alignment = abs(
@@ -394,6 +377,10 @@ func get_magnet_alignment_angle(
 	)
 
 
+	# ==================================================
+	# ANGLE
+	# ==================================================
+
 	var angle = rad_to_deg(
 		acos(alignment)
 	)
@@ -404,21 +391,6 @@ func get_magnet_alignment_angle(
 
 # ==================================================
 # FIND VALID PICKUP OBJECT
-# ==================================================
-#
-# IMPORTANT:
-#
-# A box must pass TWO tests.
-#
-# TEST 1:
-# Physical distance
-#
-# TEST 2:
-# Angular alignment
-#
-# This prevents a box far away from being picked up
-# simply because its MagnetPoint has the correct
-# rotation.
 # ==================================================
 
 func find_closest_magnetic_object() -> Node3D:
@@ -436,7 +408,7 @@ func find_closest_magnetic_object() -> Node3D:
 	for object in objects:
 
 		# ==================================================
-		# VALID OBJECT?
+		# VALID OBJECT
 		# ==================================================
 
 		if not is_instance_valid(object):
@@ -445,7 +417,7 @@ func find_closest_magnetic_object() -> Node3D:
 
 
 		# ==================================================
-		# IGNORE CURRENTLY PICKED OBJECT
+		# IGNORE CURRENT OBJECT
 		# ==================================================
 
 		if object == picked_object:
@@ -466,7 +438,7 @@ func find_closest_magnetic_object() -> Node3D:
 
 
 		# ==================================================
-		# GET BOX MAGNET POINT
+		# GET MAGNET POINT
 		# ==================================================
 
 		var object_magnet = (
@@ -482,13 +454,7 @@ func find_closest_magnetic_object() -> Node3D:
 
 
 		# ==================================================
-		# TEST 1 — PHYSICAL DISTANCE
-		# ==================================================
-		#
-		# This is NOT alignment.
-		#
-		# It simply prevents the magnet from picking
-		# up objects that are far away.
+		# DISTANCE CHECK
 		# ==================================================
 
 		var distance = (
@@ -504,7 +470,7 @@ func find_closest_magnetic_object() -> Node3D:
 
 
 		# ==================================================
-		# TEST 2 — ROTATIONAL ALIGNMENT
+		# ALIGNMENT CHECK
 		# ==================================================
 
 		var angle = (
@@ -520,7 +486,7 @@ func find_closest_magnetic_object() -> Node3D:
 
 
 		# ==================================================
-		# KEEP CLOSEST VALID OBJECT
+		# CLOSEST VALID OBJECT
 		# ==================================================
 
 		if distance < best_distance:
@@ -536,12 +502,6 @@ func find_closest_magnetic_object() -> Node3D:
 # ==================================================
 # GET MAGNET CONTACT TRANSFORM
 # ==================================================
-#
-# Calculates where the BOX MAGNET should be after
-# pickup.
-#
-# This is separate from the pickup detection.
-# ==================================================
 
 func get_magnet_contact_transform() -> Transform3D:
 
@@ -551,7 +511,7 @@ func get_magnet_contact_transform() -> Transform3D:
 
 
 	# ==================================================
-	# CENTER-TO-CENTER DISTANCE
+	# MAGNET CENTER DISTANCE
 	# ==================================================
 
 	var center_distance = (
@@ -590,13 +550,6 @@ func get_magnet_contact_transform() -> Transform3D:
 # ==================================================
 # ALIGN PICKED OBJECT
 # ==================================================
-#
-# Once picked up, continuously keep the box attached
-# to the bottom of the arm magnet.
-#
-# This is what makes the box follow the magnet while
-# the arm moves.
-# ==================================================
 
 func align_picked_object():
 
@@ -604,6 +557,17 @@ func align_picked_object():
 
 		return
 
+
+	if not is_instance_valid(picked_object):
+
+		picked_object = null
+
+		return
+
+
+	# ==================================================
+	# GET OBJECT MAGNET
+	# ==================================================
 
 	var object_magnet = (
 		get_object_magnet_point(
@@ -618,7 +582,7 @@ func align_picked_object():
 
 
 	# ==================================================
-	# GET TARGET MAGNET TRANSFORM
+	# TARGET TRANSFORM
 	# ==================================================
 
 	var target_transform = (
@@ -627,7 +591,7 @@ func align_picked_object():
 
 
 	# ==================================================
-	# CALCULATE WHOLE BOX TRANSFORM
+	# CALCULATE WHOLE OBJECT TRANSFORM
 	# ==================================================
 
 	var box_transform = (
@@ -637,7 +601,7 @@ func align_picked_object():
 
 
 	# ==================================================
-	# APPLY TO WHOLE BOX
+	# APPLY TRANSFORM
 	# ==================================================
 
 	picked_object.global_transform = (
@@ -652,7 +616,7 @@ func align_picked_object():
 func toggle_magnet():
 
 	# ==================================================
-	# IF HOLDING BOX → RELEASE
+	# ALREADY HOLDING OBJECT
 	# ==================================================
 
 	if picked_object != null:
@@ -663,7 +627,7 @@ func toggle_magnet():
 
 
 	# ==================================================
-	# FIND VALID BOX
+	# FIND OBJECT
 	# ==================================================
 
 	var object = (
@@ -672,7 +636,7 @@ func toggle_magnet():
 
 
 	# ==================================================
-	# NO VALID BOX
+	# NOTHING FOUND
 	# ==================================================
 
 	if object == null:
@@ -706,7 +670,7 @@ func pickup_object(
 
 
 	# ==================================================
-	# GET BOX MAGNET
+	# GET MAGNET POINT
 	# ==================================================
 
 	var object_magnet = (
@@ -726,14 +690,13 @@ func pickup_object(
 		return
 
 
-	print(
-		"MAGNET PICKED UP: ",
-		object.name
-	)
+	print("================================")
+	print("MAGNET PICKED UP: ", object.name)
+	print("================================")
 
 
 	# ==================================================
-	# GET CORRECT CONTACT TRANSFORM
+	# GET TARGET TRANSFORM
 	# ==================================================
 
 	var target_transform = (
@@ -742,7 +705,7 @@ func pickup_object(
 
 
 	# ==================================================
-	# CALCULATE BOX TRANSFORM
+	# CALCULATE OBJECT TRANSFORM
 	# ==================================================
 
 	var desired_box_transform = (
@@ -752,20 +715,43 @@ func pickup_object(
 
 
 	# ==================================================
-	# STOP PHYSICS
+	# SAVE PHYSICS SETTINGS
 	# ==================================================
 
 	if object is RigidBody3D:
 
-		object.freeze = true
+		var rigid_body := object as RigidBody3D
 
-		object.linear_velocity = Vector3.ZERO
 
-		object.angular_velocity = Vector3.ZERO
+		# Save collision settings specifically
+		# for this object.
+
+		saved_collision_settings[object] = {
+			"layer": rigid_body.collision_layer,
+			"mask": rigid_body.collision_mask
+		}
+
+
+		# ==================================================
+		# STOP PHYSICS
+		# ==================================================
+
+		rigid_body.freeze = true
+
+		rigid_body.linear_velocity = Vector3.ZERO
+		rigid_body.angular_velocity = Vector3.ZERO
+
+
+		# ==================================================
+		# DISABLE COLLISION WHILE CARRIED
+		# ==================================================
+
+		rigid_body.collision_layer = 0
+		rigid_body.collision_mask = 0
 
 
 	# ==================================================
-	# ATTACH BOX TO MAGNET
+	# ATTACH OBJECT TO MAGNET
 	# ==================================================
 
 	object.reparent(
@@ -775,7 +761,7 @@ func pickup_object(
 
 
 	# ==================================================
-	# APPLY CORRECT POSITION + ROTATION
+	# APPLY POSITION + ROTATION
 	# ==================================================
 
 	object.global_transform = (
@@ -790,9 +776,10 @@ func pickup_object(
 	picked_object = object
 
 
-	print(
-		"OBJECT ATTACHED TO MAGNET"
-	)
+	# 🔊 MAGNET ATTACH SOUND
+	AudioManager.play_magnet()
+	
+	print("OBJECT ATTACHED TO MAGNET")
 
 
 # ==================================================
@@ -806,13 +793,19 @@ func release_object():
 		return
 
 
+	if not is_instance_valid(picked_object):
+
+		picked_object = null
+
+		return
+
+
 	var object = picked_object
 
 
-	print(
-		"MAGNET RELEASED: ",
-		object.name
-	)
+	print("================================")
+	print("MAGNET RELEASED: ", object.name)
+	print("================================")
 
 
 	# ==================================================
@@ -842,7 +835,7 @@ func release_object():
 
 
 	# ==================================================
-	# RESTORE EXACT WORLD TRANSFORM
+	# RESTORE WORLD TRANSFORM
 	# ==================================================
 
 	object.global_transform = (
@@ -856,13 +849,51 @@ func release_object():
 
 	if object is RigidBody3D:
 
-		object.freeze = false
-
-		object.linear_velocity = Vector3.ZERO
-
-		object.angular_velocity = Vector3.ZERO
+		var rigid_body := object as RigidBody3D
 
 
-	print(
-		"OBJECT RELEASED"
-	)
+		# ==================================================
+		# RESTORE COLLISION SETTINGS
+		# ==================================================
+
+		if saved_collision_settings.has(object):
+
+			var settings = (
+				saved_collision_settings[object]
+			)
+
+			rigid_body.collision_layer = (
+				settings["layer"]
+			)
+
+			rigid_body.collision_mask = (
+				settings["mask"]
+			)
+
+
+		# ==================================================
+		# UNFREEZE
+		# ==================================================
+
+		rigid_body.freeze = false
+
+
+		# ==================================================
+		# RESET VELOCITY
+		# ==================================================
+
+		rigid_body.linear_velocity = Vector3.ZERO
+		rigid_body.angular_velocity = Vector3.ZERO
+
+
+		# ==================================================
+		# REMOVE SAVED SETTINGS
+		# ==================================================
+
+		saved_collision_settings.erase(object)
+
+
+	# 🔊 MAGNET RELEASE SOUND
+	AudioManager.play_magnet()
+	
+	print("OBJECT RELEASED")

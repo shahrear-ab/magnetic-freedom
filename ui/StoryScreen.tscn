@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cq7bpiw51m8x8"]
+
+[ext_resource type="Script" uid="uid://lamo3n3a2bgy" path="res://scripts/story_screen.gd" id="1_a5ppl"]
+
+[node name="StoryScreen" type="Control" unique_id=1430951001]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a5ppl")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1926258261]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02745098, 0.07450981, 0.101960786, 1)
+
+[node name="StoryContainer" type="VBoxContainer" parent="." unique_id=380510345]
+custom_minimum_size = Vector2(900, 500)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.15
+anchor_right = 0.75
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="StoryContainer" unique_id=1257636864]
+layout_mode = 2
+text = "OPERATION: MAGNETIC FREEDOM"
+
+[node name="StoryText" type="RichTextLabel" parent="StoryContainer" unique_id=813054106]
+layout_mode = 2
+size_flags_vertical = 3
+scroll_active = false
+
+[node name="NextButton" type="Button" parent="StoryContainer" unique_id=322439062]
+layout_mode = 2
+text = "CONTINUE"

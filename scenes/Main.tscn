@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://2amsr2i776bc"]
 
 [ext_resource type="PackedScene" uid="uid://duhuarji8xdv3" path="res://scenes/PlayerVehicle.tscn" id="1_elqb8"]
+[ext_resource type="PackedScene" uid="uid://cs4it3bycxn0d" path="res://scenes/floor.tscn" id="1_lhr70"]
 [ext_resource type="Script" uid="uid://b772k5isyb3db" path="res://scripts/target_zone.gd" id="2_rvslj"]
 [ext_resource type="PackedScene" uid="uid://3fwlam1tv6kw" path="res://scenes/Shelf.tscn" id="3_0bbpv"]
 [ext_resource type="PackedScene" uid="uid://su84xv5wcvri" path="res://scenes/Wall.tscn" id="4_rarhs"]
@@ -9,16 +10,18 @@
 [ext_resource type="Script" uid="uid://di3pxvkwnvg7n" path="res://scripts/pause_menu.gd" id="6_jlsqs"]
 [ext_resource type="PackedScene" uid="uid://dwyi1ykn37exo" path="res://scenes/SecurityVehicle.tscn" id="7_nxtc6"]
 [ext_resource type="PackedScene" uid="uid://ditngm20708bd" path="res://scenes/PickupBox.tscn" id="7_q8u5g"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_egj8t"]
-size = Vector3(40, 0.2, 40)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvslj"]
-albedo_color = Color(0, 0.5387741, 0.5661195, 1)
-roughness = 0.8
-
-[sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
-size = Vector3(40, 0.3, 40)
+[ext_resource type="PackedScene" uid="uid://cq7bpiw51m8x8" path="res://ui/StoryScreen.tscn" id="11_wp0k4"]
+[ext_resource type="Texture2D" uid="uid://dhmrjk7vnj688" path="res://models/outside_models/Floor Grass Sliced B by Isa Lousberg - UMKvhGhK90_tiny_treats_grass_texture.png" id="11_yxlcp"]
+[ext_resource type="PackedScene" uid="uid://d2jypgbklvw3p" path="res://models/outside_models/Cardboard Boxes by Quaternius - V9KbWC8Vd6.glb" id="12_qmy6f"]
+[ext_resource type="PackedScene" uid="uid://c37kjqumnnb81" path="res://models/outside_models/Container by KolosStudios - CQMziXZfYh.glb" id="13_mwfav"]
+[ext_resource type="PackedScene" uid="uid://ccqb8jpjiqku1" path="res://models/outside_models/Road by Poly by Google - 9RFlFC9Znk4.glb" id="14_3p2gp"]
+[ext_resource type="PackedScene" uid="uid://c674siv3tqvyr" path="res://models/outside_models/Structure by Quaternius - ilWoURnbZW.glb" id="14_mwfav"]
+[ext_resource type="PackedScene" uid="uid://dkkrbj721hly4" path="res://models/outside_models/Truck by Zsky - EWp0hGvZPV.glb" id="16_cvmbd"]
+[ext_resource type="PackedScene" uid="uid://cc842yxwqdt75" path="res://models/outside_models/Large Building by Kenney - yKo7F36Qk2.glb" id="17_bb450"]
+[ext_resource type="PackedScene" uid="uid://bp3g1yk13bqvq" path="res://models/outside_models/Factory by Poly by Google - fCiJW5Qdgbf.glb" id="18_nfivy"]
+[ext_resource type="PackedScene" uid="uid://b2a1vnhavirqq" path="res://models/outside_models/Shipping Container Structure by Quaternius - ebmepOXDRd.glb" id="19_1nqs0"]
+[ext_resource type="PackedScene" uid="uid://duxc16fwknjvw" path="res://models/outside_models/Dumpster by KolosStudios - ASkP8wjEGs.glb" id="20_1iba3"]
+[ext_resource type="PackedScene" uid="uid://d5gqkvd4fdw0" path="res://models/outside_models/Structure by Quaternius - PB5Cd3dL24.glb" id="21_1iba3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
 size = Vector3(3, 0.5, 4)
@@ -28,6 +31,18 @@ albedo_color = Color(0.02745098, 0.7490196, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ucl8h"]
 size = Vector3(3, 0.1, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_anhtn"]
+bg_color = Color(0.08627451, 0.16862746, 0.20784314, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4392157, 0.84705883, 0.9098039, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xysun"]
 sky_top_color = Color(0.30980393, 0.65882355, 0.8784314, 1)
@@ -42,29 +57,22 @@ sky_material = SubResource("ProceduralSkyMaterial_xysun")
 background_mode = 2
 sky = SubResource("Sky_q8u5g")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egj8t"]
-albedo_color = Color(0.21251175, 0.24220613, 0.18291563, 1)
-roughness = 0.8
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebg2g"]
+albedo_texture = ExtResource("11_yxlcp")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_anhtn"]
 size = Vector2(100, 100)
 
 [node name="Main" type="Node3D" unique_id=844569944]
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=308517232]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1892060702]
-shape = SubResource("BoxShape3D_egj8t")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=47453414]
-material_override = SubResource("StandardMaterial3D_rvslj")
-mesh = SubResource("BoxMesh_anhtn")
+[node name="Floor" parent="." unique_id=1178220205 instance=ExtResource("1_lhr70")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1043262350]
 transform = Transform3D(0.8660254, 0.28678823, -0.40957603, 0, 0.81915206, 0.57357645, 0.5, -0.49673176, 0.7094065, 0, 19.356438, 4.2273293)
 
 [node name="PlayerVehicle" parent="." unique_id=1090934575 groups=["player_vehicle"] instance=ExtResource("1_elqb8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.265467, 0.5, 11.658884)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.265, 0.7, 11.659)
 
 [node name="Camera" type="Camera3D" parent="PlayerVehicle" unique_id=636648059]
 transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, -1.8687315, 6.010294, 3.9975548)
@@ -275,13 +283,49 @@ text = "RESUME"
 layout_mode = 2
 text = "RESTART"
 
-[node name="KeyboardButton" type="Button" parent="HUD/PauseMenu/PausePanel/VBoxContainer" unique_id=1222230805]
-layout_mode = 2
-text = "KEYBOARD LAYOUT"
-
 [node name="QuitButton" type="Button" parent="HUD/PauseMenu/PausePanel/VBoxContainer" unique_id=478513280]
 layout_mode = 2
 text = "QUIT GAME"
+
+[node name="ControlsPanel" type="PanelContainer" parent="HUD" unique_id=817675682]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -292.0
+offset_top = 15.0
+offset_right = -12.0
+offset_bottom = 334.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_anhtn")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/ControlsPanel" unique_id=2037099110]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/ControlsPanel/MarginContainer" unique_id=67250718]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ControlsTitle" type="Label" parent="HUD/ControlsPanel/MarginContainer/VBoxContainer" unique_id=151809649]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CONTROLS"
+
+[node name="AllControlls" type="Label" parent="HUD/ControlsPanel/MarginContainer/VBoxContainer" unique_id=1730511120]
+layout_mode = 2
+text = "VEHICLE
+W / A / S / D    Move
+
+ROBOT ARM
+Q / E            Elbow
+↑ / ↓            Forearm
+
+MAGNET
+SPACE            Attach / Detach
+M + W/A/S/D      Move Magnet"
 
 [node name="pickup_boxes" type="Node" parent="." unique_id=127735330]
 
@@ -289,7 +333,7 @@ text = "QUIT GAME"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.725725, 1.0529981, -16.860048)
 
 [node name="PickupObject2" parent="pickup_boxes" unique_id=1430585326 instance=ExtResource("7_q8u5g")]
-transform = Transform3D(0.49090376, 0.8712138, 3.8081964e-08, 0, -4.371139e-08, 1, 0.8712138, -0.49090376, -2.1458085e-08, 9.714153, 0.6000004, -1.626545)
+transform = Transform3D(0.49090376, 0.8712138, 3.8081964e-08, 0, -4.371139e-08, 1, 0.8712138, -0.49090376, -2.1458085e-08, -5.171447, 0.6000004, 16.931961)
 
 [node name="PickupObject3" parent="pickup_boxes" unique_id=2070712310 instance=ExtResource("7_q8u5g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.983185, 0.6000004, 5.1310744)
@@ -312,13 +356,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05079317, 0, -7.6218762)
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 1.0261688, 0.10000038, -4.927865)
 
 [node name="SecurityVehicle" parent="." unique_id=2097209217 instance=ExtResource("7_nxtc6")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.3049011, 0.8500004, 1.0054607)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.305, 0.7, 1.005)
 
 [node name="SecurityVehicle2" parent="." unique_id=976083143 instance=ExtResource("7_nxtc6")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11.3127575, 0.8500004, 13.190237)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11.313, 0.7, 13.19)
 
 [node name="SecurityVehicle3" parent="." unique_id=1146980353 instance=ExtResource("7_nxtc6")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14.885423, 0.8500023, -12.667267)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14.885, 0.7, -12.667)
 
 [node name="Shelf" parent="." unique_id=886278470 instance=ExtResource("3_0bbpv")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.6606407, 0.10000229, 9.272384)
@@ -327,7 +371,91 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.6606407, 0.10000229, 
 environment = SubResource("Environment_anhtn")
 
 [node name="OutdoorFloor" type="MeshInstance3D" parent="." unique_id=1357199546]
-material_override = SubResource("StandardMaterial3D_egj8t")
+material_override = SubResource("StandardMaterial3D_ebg2g")
 mesh = SubResource("PlaneMesh_anhtn")
+
+[node name="StoryScreen" parent="." unique_id=1430951001 instance=ExtResource("11_wp0k4")]
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1840548197]
+
+[node name="boxes" parent="Node3D" unique_id=1614529863 instance=ExtResource("12_qmy6f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.080791, -2.861023e-06, 0.59422016)
+
+[node name="Root Scene" parent="Node3D" unique_id=506340957 instance=ExtResource("13_mwfav")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.56996, 0, -38.715836)
+
+[node name="Road" type="Node3D" parent="Node3D" unique_id=722511472]
+
+[node name="Road by Poly by Google - 9RFlFC9Znk4" parent="Node3D/Road" unique_id=1086710962 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, -38.07071)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk5" parent="Node3D/Road" unique_id=1272206854 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, -14.733577)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk6" parent="Node3D/Road" unique_id=346109074 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, 8.627138)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk7" parent="Node3D/Road" unique_id=1472879715 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, 31.820234)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk8" parent="Node3D/Road" unique_id=1802064295 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, 38.636795)
+
+[node name="Road2" type="Node3D" parent="Node3D" unique_id=426447574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.775955, 0, 0)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk4" parent="Node3D/Road2" unique_id=56878613 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, -38.07071)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk5" parent="Node3D/Road2" unique_id=583472515 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, -14.733577)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk6" parent="Node3D/Road2" unique_id=928529684 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, 8.627138)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk7" parent="Node3D/Road2" unique_id=1518569893 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, 31.820234)
+
+[node name="Road by Poly by Google - 9RFlFC9Znk8" parent="Node3D/Road2" unique_id=1890537793 instance=ExtResource("14_3p2gp")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 46.095535, 0, 38.636795)
+
+[node name="Root Scene2" parent="Node3D" unique_id=953442185 instance=ExtResource("13_mwfav")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.638985, 1.9073486e-06, -38.686405)
+
+[node name="Root Scene3" parent="Node3D" unique_id=469939991 instance=ExtResource("12_qmy6f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.53134, 1.9073486e-06, -41.933197)
+
+[node name="Root Scene4" parent="Node3D" unique_id=975068148 instance=ExtResource("14_mwfav")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.6070404, 0, -40.3062)
+
+[node name="Root Scene5" parent="Node3D" unique_id=56508254 instance=ExtResource("16_cvmbd")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -25.032547, 1.523329, 29.176893)
+
+[node name="Large Building by Kenney - yKo7F36Qk2" parent="Node3D" unique_id=2094264100 instance=ExtResource("17_bb450")]
+transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -32.755363, 0, 42.94961)
+
+[node name="Factory by Poly by Google - fCiJW5Qdgbf" parent="Node3D" unique_id=55360839 instance=ExtResource("18_nfivy")]
+transform = Transform3D(11, 0, 0, 0, 11, 0, 0, 0, 11, -23.653782, 7.7288494, -39.400585)
+
+[node name="Root Scene6" parent="Node3D" unique_id=123934797 instance=ExtResource("19_1nqs0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.337925, 0, 43.167866)
+
+[node name="Root Scene7" parent="Node3D" unique_id=1432446889 instance=ExtResource("20_1iba3")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -57.13041, 1.9073486e-06, 40.28195)
+
+[node name="Root Scene8" parent="Node3D" unique_id=901140326 instance=ExtResource("13_mwfav")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0381641, -3.8146973e-06, 46.227043)
+
+[node name="Root Scene9" parent="Node3D" unique_id=1318226300 instance=ExtResource("21_1iba3")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 11.777453, 0, 41.894974)
+
+[node name="Root Scene" parent="." unique_id=1574777266 instance=ExtResource("12_qmy6f")]
+transform = Transform3D(0.86199266, 0, -0.50692075, 0, 1, 0, 0.50692075, 0, 0.86199266, 22.790934, 1.9073486e-06, 43.8052)
+
+[node name="Root Scene2" parent="." unique_id=1473274970 instance=ExtResource("12_qmy6f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.483156, 0, -34.92474)
+
+[node name="Root Scene3" parent="." unique_id=415459977 instance=ExtResource("12_qmy6f")]
+transform = Transform3D(0.66494435, 0, -0.74689287, 0, 1, 0, 0.74689287, 0, 0.66494435, 39.306984, 0, -13.656368)
 
 [connection signal="body_entered" from="DeliveryZone/Area3D" to="DeliveryZone/Area3D" method="_on_body_entered"]

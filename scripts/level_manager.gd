@@ -32,6 +32,23 @@ var mission_finished: bool = false
 
 
 # ==================================================
+# TIMER WARNING STATE
+# ==================================================
+#
+# Prevents timer_warning.ogg from playing repeatedly.
+#
+
+var timer_warning_played: bool = false
+
+
+# ==================================================
+# REFERENCES
+# ==================================================
+
+@onready var pause_menu = $"../HUD/PauseMenu"
+
+
+# ==================================================
 # READY
 # ==================================================
 
@@ -44,13 +61,21 @@ func _ready():
 	print("BOXES REQUIRED: ", required_boxes)
 	print("==============================")
 
-	# Save original box positions
+
+	# ==================================================
+	# SAVE ORIGINAL BOX POSITIONS
+	# ==================================================
+
 	for box in get_tree().get_nodes_in_group("pickup_boxes"):
 
 		box_start_positions[box] = box.global_position
 		box_start_rotations[box] = box.global_rotation
 
-	start_level()
+
+	# ==================================================
+	# START LEVEL
+	# ==================================================
+
 
 
 # ==================================================
@@ -61,15 +86,21 @@ func start_level():
 
 	time_left = level_time
 	delivered_boxes = 0
+
 	level_active = true
 	mission_finished = false
+
+	# Reset 30-second warning
+	timer_warning_played = false
 
 
 	# ==================================================
 	# RESET DELIVERY ZONE
 	# ==================================================
 
-	var delivery_zone = get_node_or_null("../DeliveryZone/Area3D")
+	var delivery_zone = get_node_or_null(
+		"../DeliveryZone/Area3D"
+	)
 
 	if delivery_zone != null:
 
@@ -77,32 +108,51 @@ func start_level():
 
 	else:
 
-		print("WARNING: DeliveryZone Area3D not found!")
+		print(
+			"WARNING: DeliveryZone Area3D not found!"
+		)
 
 
 	# ==================================================
 	# RESET ALL PICKUP BOXES
 	# ==================================================
 
-	var boxes = get_tree().get_nodes_in_group("pickup_boxes")
+	var boxes = get_tree().get_nodes_in_group(
+		"pickup_boxes"
+	)
+
 
 	for i in range(boxes.size()):
 
 		var box = boxes[i]
 
-		# Reset position
+
+		# ==================================================
+		# RESET POSITION
+		# ==================================================
+
 		if box_start_positions.has(box):
 
-			box.global_position = box_start_positions[box]
+			box.global_position = (
+				box_start_positions[box]
+			)
 
 
-		# Reset rotation
+		# ==================================================
+		# RESET ROTATION
+		# ==================================================
+
 		if box_start_rotations.has(box):
 
-			box.global_rotation = box_start_rotations[box]
+			box.global_rotation = (
+				box_start_rotations[box]
+			)
 
 
-		# Show only the required number of boxes
+		# ==================================================
+		# SHOW REQUIRED BOXES
+		# ==================================================
+
 		if i < required_boxes:
 
 			box.show()
@@ -119,7 +169,10 @@ func start_level():
 	print("==============================")
 	print("LEVEL ", level_number, " STARTED")
 	print("TIME: ", time_left)
-	print("BOXES: 0 / ", required_boxes)
+	print(
+		"BOXES: 0 / ",
+		required_boxes
+	)
 	print("==============================")
 
 
@@ -130,23 +183,53 @@ func start_level():
 func _process(delta):
 
 	if not level_active:
+
 		return
+
 
 	if mission_finished:
+
 		return
 
 
-	# Decrease timer
+	# ==================================================
+	# DECREASE TIMER
+	# ==================================================
+
 	time_left -= delta
 
 
-	# Prevent negative timer
+	# ==================================================
+	# 30 SECOND WARNING
+	# ==================================================
+
+	if time_left <= 30.0:
+
+		if not timer_warning_played:
+
+			timer_warning_played = true
+
+			AudioManager.play_timer_warning()
+
+			print("==============================")
+			print("TIMER WARNING!")
+			print("30 SECONDS REMAINING!")
+			print("==============================")
+
+
+	# ==================================================
+	# PREVENT NEGATIVE TIMER
+	# ==================================================
+
 	if time_left < 0.0:
 
 		time_left = 0.0
 
 
-	# Time finished
+	# ==================================================
+	# TIME FINISHED
+	# ==================================================
+
 	if time_left <= 0.0:
 
 		fail_level("TIME UP")
@@ -159,23 +242,41 @@ func _process(delta):
 func box_delivered():
 
 	if not level_active:
+
 		return
 
+
 	if mission_finished:
+
 		return
 
 
 	delivered_boxes += 1
 
 
+	# ==================================================
+	# BOX DELIVERED SOUND
+	# ==================================================
+
+	AudioManager.play_box_delivered()
+
+
 	print("==============================")
 	print("BOX DELIVERED!")
-	print("BOXES: ", delivered_boxes, " / ", required_boxes)
+	print(
+		"BOXES: ",
+		delivered_boxes,
+		" / ",
+		required_boxes
+	)
 	print("TIME LEFT: ", time_left)
 	print("==============================")
 
 
-	# Check if objective completed
+	# ==================================================
+	# CHECK OBJECTIVE
+	# ==================================================
+
 	if delivered_boxes >= required_boxes:
 
 		complete_level()
@@ -188,6 +289,7 @@ func box_delivered():
 func complete_level():
 
 	if mission_finished:
+
 		return
 
 
@@ -199,16 +301,67 @@ func complete_level():
 	print("==============================")
 	print("MISSION COMPLETE!")
 	print("LEVEL ", level_number, " COMPLETE")
-	print("BOXES DELIVERED: ", delivered_boxes)
-	print("TIME REMAINING: ", time_left)
+	print(
+		"BOXES DELIVERED: ",
+		delivered_boxes
+	)
+	print(
+		"TIME REMAINING: ",
+		time_left
+	)
 	print("==============================")
 	print("")
 
 
-	# If this wasn't the final level
-	if level_number < total_levels:
+	# ==================================================
+	# FINAL LEVEL
+	# ==================================================
+	#
+	# LEVEL 5:
+	#
+	# Play ONLY level_complete.ogg
+	#
+	# Do NOT play mission_complete.ogg.
+	# ==================================================
 
-		get_tree().create_timer(3.0).timeout.connect(start_next_level)
+	if level_number >= total_levels:
+
+		print("==============================")
+		print("ALL MISSIONS COMPLETED!")
+		print("==============================")
+
+
+		# 🔊 FINAL VICTORY SOUND
+
+		AudioManager.play_level_complete()
+
+
+		# Show final screen
+
+		pause_menu.show_all_missions_complete()
+
+		return
+
+
+	# ==================================================
+	# NORMAL LEVEL COMPLETE
+	# ==================================================
+	#
+	# Levels 1–4:
+	#
+	# Play mission_complete.ogg
+	# ==================================================
+
+	AudioManager.play_mission_complete()
+
+
+	# ==================================================
+	# WAIT BEFORE NEXT LEVEL
+	# ==================================================
+
+	get_tree().create_timer(3.0).timeout.connect(
+		start_next_level
+	)
 
 
 # ==================================================
@@ -250,7 +403,10 @@ func start_next_level():
 			required_boxes = 3
 
 
-	# Start the new level
+	# ==================================================
+	# START NEW LEVEL
+	# ==================================================
+
 	start_level()
 
 
@@ -261,6 +417,7 @@ func start_next_level():
 func fail_level(reason: String):
 
 	if mission_finished:
+
 		return
 
 
@@ -268,9 +425,24 @@ func fail_level(reason: String):
 	level_active = false
 
 
+	# ==================================================
+	# MISSION FAILED SOUND
+	# ==================================================
+
+	AudioManager.play_mission_failed()
+
+
 	print("")
 	print("==============================")
 	print("MISSION FAILED!")
+	print("LEVEL: ", level_number)
 	print("REASON: ", reason)
 	print("==============================")
 	print("")
+
+
+	# ==================================================
+	# SHOW MISSION FAILED SCREEN
+	# ==================================================
+
+	pause_menu.show_mission_failed()

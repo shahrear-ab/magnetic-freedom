@@ -2,15 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cv3yeu26l75qk" path="res://scripts/security_vehicle.gd" id="1_5qi15"]
 [ext_resource type="Script" uid="uid://v2bb1fljf4p0" path="res://scripts/security_detection_zone.gd" id="1_c4p26"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6k1vx"]
-albedo_color = Color(4.0911138e-07, 0.35998505, 0.44561863, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
-size = Vector3(2.5, 1.5, 4)
+[ext_resource type="PackedScene" uid="uid://vs4vvd1d5qc6" path="res://models/Roomba by Poly by Google - 5WERTPcyIMn.glb" id="3_75s0y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
-size = Vector3(2.5, 0.8, 4)
+size = Vector3(2.5, 0.8, 3)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_anhtn"]
 radius = 5.0
@@ -18,10 +13,6 @@ radius = 5.0
 [node name="SecurityVehicle" type="CharacterBody3D" unique_id=2097209217 groups=["security_vehicle"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_5qi15")
-
-[node name="Body" type="MeshInstance3D" parent="." unique_id=1446992772]
-material_override = SubResource("StandardMaterial3D_6k1vx")
-mesh = SubResource("BoxMesh_anhtn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=762016329]
 shape = SubResource("BoxShape3D_anhtn")
@@ -32,3 +23,6 @@ script = ExtResource("1_c4p26")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SecurityDetectionZone" unique_id=221647577]
 shape = SubResource("SphereShape3D_anhtn")
+
+[node name="CarModel" parent="." unique_id=1355313885 instance=ExtResource("3_75s0y")]
+transform = Transform3D(0.1, 0, 0, 0, 0.11, 0, 0, 0, 0.12, 0.0008728504, -0.30185306, -0.21981514)

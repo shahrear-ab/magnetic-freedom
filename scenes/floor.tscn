@@ -1,0 +1,348 @@
+[gd_scene format=3 uid="uid://cs4it3bycxn0d"]
+
+[ext_resource type="PackedScene" uid="uid://c8johth5rwq81" path="res://models/Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN.glb" id="1_ukw5w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_egj8t"]
+size = Vector3(40, 0.2, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvslj"]
+albedo_color = Color(0, 0.5387741, 0.5661195, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
+size = Vector3(40, 0.3, 40)
+
+[node name="Floor" type="StaticBody3D" unique_id=1178220205]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1724187830]
+shape = SubResource("BoxShape3D_egj8t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1481450803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18225574, 0)
+material_override = SubResource("StandardMaterial3D_rvslj")
+mesh = SubResource("BoxMesh_anhtn")
+
+[node name="onehalf" type="Node3D" parent="." unique_id=1149955008]
+
+[node name="oneRow" type="Node3D" parent="onehalf" unique_id=1425634253]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf/oneRow" unique_id=358663605 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf/oneRow" unique_id=490662698 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf/oneRow" unique_id=1254492877 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf/oneRow" unique_id=36191681 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf/oneRow" unique_id=467651313 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf/oneRow" unique_id=3558149 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf/oneRow" unique_id=2114565587 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf/oneRow" unique_id=1601949958 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf/oneRow" unique_id=64673991 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf/oneRow" unique_id=222234809 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -18)
+
+[node name="oneRow2" type="Node3D" parent="onehalf" unique_id=1263373483]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf/oneRow2" unique_id=1653374577 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf/oneRow2" unique_id=1673706090 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf/oneRow2" unique_id=874766407 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf/oneRow2" unique_id=1815803605 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf/oneRow2" unique_id=1160160744 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf/oneRow2" unique_id=1267479637 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf/oneRow2" unique_id=13891985 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf/oneRow2" unique_id=1144920824 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf/oneRow2" unique_id=284885871 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf/oneRow2" unique_id=1153656769 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -18)
+
+[node name="oneRow3" type="Node3D" parent="onehalf" unique_id=1492547030]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf/oneRow3" unique_id=1633327130 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf/oneRow3" unique_id=1528037384 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf/oneRow3" unique_id=1088674772 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf/oneRow3" unique_id=719899702 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf/oneRow3" unique_id=310996401 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf/oneRow3" unique_id=790350281 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf/oneRow3" unique_id=335453267 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf/oneRow3" unique_id=1710880991 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf/oneRow3" unique_id=9083259 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf/oneRow3" unique_id=326974825 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -18)
+
+[node name="oneRow4" type="Node3D" parent="onehalf" unique_id=374036159]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf/oneRow4" unique_id=440077747 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf/oneRow4" unique_id=1139847961 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf/oneRow4" unique_id=961382294 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf/oneRow4" unique_id=192165916 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf/oneRow4" unique_id=1105683397 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf/oneRow4" unique_id=1919843142 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf/oneRow4" unique_id=1744936340 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf/oneRow4" unique_id=1891659422 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf/oneRow4" unique_id=1841057771 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf/oneRow4" unique_id=62790634 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -18)
+
+[node name="oneRow5" type="Node3D" parent="onehalf" unique_id=1970908079]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf/oneRow5" unique_id=1517911097 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf/oneRow5" unique_id=1429314975 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf/oneRow5" unique_id=464664810 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf/oneRow5" unique_id=110893556 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf/oneRow5" unique_id=94877308 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf/oneRow5" unique_id=665013479 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf/oneRow5" unique_id=817547448 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf/oneRow5" unique_id=1276776492 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf/oneRow5" unique_id=1628074381 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf/oneRow5" unique_id=178026006 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -18)
+
+[node name="onehalf2" type="Node3D" parent="." unique_id=1422848895]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="oneRow" type="Node3D" parent="onehalf2" unique_id=1227656643]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf2/oneRow" unique_id=86797044 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf2/oneRow" unique_id=1657610465 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf2/oneRow" unique_id=101860275 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf2/oneRow" unique_id=703903793 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf2/oneRow" unique_id=259335836 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf2/oneRow" unique_id=654149817 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf2/oneRow" unique_id=32518904 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf2/oneRow" unique_id=267745480 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf2/oneRow" unique_id=880747946 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf2/oneRow" unique_id=173766482 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.959, 0.15, -18)
+
+[node name="oneRow2" type="Node3D" parent="onehalf2" unique_id=2123602219]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf2/oneRow2" unique_id=1466946719 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf2/oneRow2" unique_id=958385797 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf2/oneRow2" unique_id=1498192740 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf2/oneRow2" unique_id=1033112674 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf2/oneRow2" unique_id=775536827 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf2/oneRow2" unique_id=165974501 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf2/oneRow2" unique_id=1656951724 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf2/oneRow2" unique_id=1772140743 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf2/oneRow2" unique_id=1155460212 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf2/oneRow2" unique_id=941713096 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.15, -18)
+
+[node name="oneRow3" type="Node3D" parent="onehalf2" unique_id=1986638436]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf2/oneRow3" unique_id=335864564 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf2/oneRow3" unique_id=1288241216 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf2/oneRow3" unique_id=1465813986 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf2/oneRow3" unique_id=462478492 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf2/oneRow3" unique_id=191600667 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf2/oneRow3" unique_id=328420244 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf2/oneRow3" unique_id=70467347 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf2/oneRow3" unique_id=370551507 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf2/oneRow3" unique_id=162800363 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf2/oneRow3" unique_id=1819340694 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.15, -18)
+
+[node name="oneRow4" type="Node3D" parent="onehalf2" unique_id=44682267]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf2/oneRow4" unique_id=1065488057 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf2/oneRow4" unique_id=1485785223 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf2/oneRow4" unique_id=1858774999 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf2/oneRow4" unique_id=1171128918 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf2/oneRow4" unique_id=325365402 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf2/oneRow4" unique_id=535924330 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf2/oneRow4" unique_id=249465928 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf2/oneRow4" unique_id=712886115 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf2/oneRow4" unique_id=562860952 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf2/oneRow4" unique_id=1169408483 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.15, -18)
+
+[node name="oneRow5" type="Node3D" parent="onehalf2" unique_id=728700472]
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN" parent="onehalf2/oneRow5" unique_id=1412639638 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 18)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN2" parent="onehalf2/oneRow5" unique_id=1330441200 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN3" parent="onehalf2/oneRow5" unique_id=87361667 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN4" parent="onehalf2/oneRow5" unique_id=686323430 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN5" parent="onehalf2/oneRow5" unique_id=1532660350 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN6" parent="onehalf2/oneRow5" unique_id=219890080 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -2)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN7" parent="onehalf2/oneRow5" unique_id=219477195 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -6)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN8" parent="onehalf2/oneRow5" unique_id=1026841013 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -10)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN9" parent="onehalf2/oneRow5" unique_id=340277787 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -14)
+
+[node name="Sci Fi Floor Tile by Dipper98 - AxCAiLgvHN10" parent="onehalf2/oneRow5" unique_id=1939332532 instance=ExtResource("1_ukw5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -18)

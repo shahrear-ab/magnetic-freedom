@@ -2,12 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c6fsc2qwjf6ln" path="res://scripts/vehicle.gd" id="1_735wl"]
 [ext_resource type="PackedScene" uid="uid://r62uqwxxamlb" path="res://scenes/RoboticArm.tscn" id="2_gu4u7"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_22b2r"]
-albedo_color = Color(0, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
-size = Vector3(2.5, 0.8, 4)
+[ext_resource type="PackedScene" uid="uid://wtd1wyoygy40" path="res://models/Car by Poly by Google - 75h3mi6uHuC.glb" id="3_jqviv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
 size = Vector3(2.5, 0.8, 4)
@@ -16,13 +11,12 @@ size = Vector3(2.5, 0.8, 4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_735wl")
 
-[node name="Body" type="MeshInstance3D" parent="." unique_id=1446992772]
-material_override = SubResource("StandardMaterial3D_22b2r")
-mesh = SubResource("BoxMesh_anhtn")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=762016329]
 shape = SubResource("BoxShape3D_anhtn")
 debug_color = Color(0, 0.6, 0.69803923, 0.39215687)
 
 [node name="RoboticArm" parent="." unique_id=1266754801 instance=ExtResource("2_gu4u7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007, 0.4, -0.157)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019610852, 0.6983857, 0.8544381)
+
+[node name="CarModel" parent="." unique_id=63292838 instance=ExtResource("3_jqviv")]
+transform = Transform3D(-0.07, 0, -4.371139e-09, 0, 0.04, 0, 6.119594e-09, 0, -0.05, -0.0034937859, -0.58426607, 0.029865026)

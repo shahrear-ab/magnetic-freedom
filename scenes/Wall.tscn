@@ -1,12 +1,8 @@
 [gd_scene format=3 uid="uid://su84xv5wcvri"]
 
+[ext_resource type="PackedScene" uid="uid://cs3y8r2ee51xo" path="res://models/Stone Wall by Quaternius - tdeAOh3LQV.glb" id="1_efbxx"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_anhtn"]
-size = Vector3(0.3, 4, 10)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_af1rm"]
-albedo_color = Color(0.6392157, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_anhtn"]
 size = Vector3(0.3, 4, 10)
 
 [node name="Wall" type="StaticBody3D" unique_id=1316468501]
@@ -14,6 +10,5 @@ size = Vector3(0.3, 4, 10)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1458092367]
 shape = SubResource("BoxShape3D_anhtn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1408998335]
-material_override = SubResource("StandardMaterial3D_af1rm")
-mesh = SubResource("BoxMesh_anhtn")
+[node name="Root Scene" parent="." unique_id=1867931756 instance=ExtResource("1_efbxx")]
+transform = Transform3D(0.018181417, 0, -1.9999924, 0, 9, 0, 6.5999746, 0, 0.0055095204, -0.022, -2, 0.028034925)

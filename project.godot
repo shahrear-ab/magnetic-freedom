@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="MagneticFreedom"
+run/main_scene="uid://2amsr2i776bc"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+AudioManager="*uid://idurbwc3eu1n"
 
 [display]
 

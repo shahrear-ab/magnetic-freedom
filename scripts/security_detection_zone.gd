@@ -49,13 +49,29 @@ func _on_body_entered(body: Node3D) -> void:
 	player_detected = true
 	detection_timer = detection_time
 
-	# Stop security vehicle
+
+	# ==================================================
+	# 🔊 SECURITY DETECTION SOUND
+	# ==================================================
+
+	AudioManager.play_security_detect()
+
+
+	# ==================================================
+	# STOP SECURITY VEHICLE
+	# ==================================================
+
 	if security_vehicle.has_method("pause_vehicle"):
 		security_vehicle.pause_vehicle()
 
-	# Show warning
+
+	# ==================================================
+	# SHOW WARNING
+	# ==================================================
+
 	if hud != null:
 		hud.show_security_warning(detection_timer)
+
 
 	print("==============================")
 	print("SECURITY VEHICLE DETECTED PLAYER!")
@@ -73,16 +89,33 @@ func _on_body_exited(body: Node3D) -> void:
 	if not body.is_in_group("player_vehicle"):
 		return
 
+
 	player_detected = false
 	detection_timer = 0.0
 
-	# Resume security vehicle
+
+	# ==================================================
+	# 🔊 STOP SECURITY DETECTION SOUND
+	# ==================================================
+
+	AudioManager.stop_security_detect()
+
+
+	# ==================================================
+	# RESUME SECURITY VEHICLE
+	# ==================================================
+
 	if security_vehicle.has_method("resume_vehicle"):
 		security_vehicle.resume_vehicle()
 
-	# Hide warning
+
+	# ==================================================
+	# HIDE WARNING
+	# ==================================================
+
 	if hud != null:
 		hud.hide_security_warning()
+
 
 	print("==============================")
 	print("PLAYER ESCAPED SECURITY ZONE")
@@ -99,37 +132,73 @@ func _process(delta):
 	if not player_detected:
 		return
 
+
+	# ==================================================
+	# DECREASE DETECTION TIMER
+	# ==================================================
+
 	detection_timer -= delta
+
 
 	if detection_timer < 0.0:
 		detection_timer = 0.0
 
-	# Update warning on HUD
+
+	# ==================================================
+	# UPDATE HUD
+	# ==================================================
+
 	if hud != null:
 		hud.update_security_warning(detection_timer)
+
 
 	print(
 		"SECURITY COUNTDOWN: ",
 		snapped(detection_timer, 0.1)
 	)
 
-	# Player stayed too long
+
+	# ==================================================
+	# PLAYER STAYED TOO LONG
+	# ==================================================
+
 	if detection_timer <= 0.0:
 
 		player_detected = false
+
+
+		# ==================================================
+		# 🔊 STOP SECURITY DETECTION SOUND
+		# ==================================================
+
+		AudioManager.stop_security_detect()
+
 
 		print("==============================")
 		print("PLAYER CAUGHT!")
 		print("MISSION FAILED!")
 		print("==============================")
 
-		# Hide warning
+
+		# ==================================================
+		# HIDE WARNING
+		# ==================================================
+
 		if hud != null:
 			hud.hide_security_warning()
 
-		# Stop security vehicle permanently
+
+		# ==================================================
+		# STOP SECURITY VEHICLE
+		# ==================================================
+
 		if security_vehicle.has_method("pause_vehicle"):
 			security_vehicle.pause_vehicle()
+
+
+		# ==================================================
+		# FAIL MISSION
+		# ==================================================
 
 		fail_mission()
 
@@ -140,7 +209,10 @@ func _process(delta):
 
 func fail_mission():
 
-	var level_manager = get_tree().get_first_node_in_group("level_manager")
+	var level_manager = get_tree().get_first_node_in_group(
+		"level_manager"
+	)
+
 
 	if level_manager != null:
 

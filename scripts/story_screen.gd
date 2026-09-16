@@ -1,0 +1,328 @@
+extends Control
+
+
+# ==================================================
+# REFERENCES
+# ==================================================
+
+@onready var story_text = $StoryContainer/StoryText
+@onready var title = $StoryContainer/Title
+@onready var next_button = $StoryContainer/NextButton
+
+
+# ==================================================
+# STORY PAGES
+# ==================================================
+
+var story_pages = [
+
+	{
+		"title": "OPERATION: MAGNETIC FREEDOM",
+		"text":
+		"Something valuable has been stolen from BUET Robotics Society.\n\n" +
+		"Deep inside a restricted industrial facility, highly confidential " +
+		"components from a secret research project are being held by a " +
+		"corporate group determined to stop the project from reaching the public.\n\n" +
+		"The stolen technology was never meant for profit.\n" +
+		"It was being developed for a project intended to serve society."
+	},
+
+	{
+		"title": "THE MISSION",
+		"text":
+		"BUET Robotics Society cannot risk sending people into the facility.\n\n" +
+		"So a specialized machine has been deployed — the MagneticFreedom Bot.\n\n" +
+		"Your mission is simple:\n\n" +
+		"Recover the stolen research components and bring them safely back " +
+		"to the designated delivery zone."
+	},
+
+	{
+		"title": "STEALTH PROTOCOL",
+		"text":
+		"But there is one problem.\n\n" +
+		"The factory floor is being monitored by autonomous security bots.\n\n" +
+		"If a security bot detects the MagneticFreedom Bot, you will have only " +
+		"2 seconds to escape its detection zone.\n\n" +
+		"Stay too long...\n\n" +
+		"MISSION FAILED."
+	},
+
+	{
+		"title": "RECOVERY PROTOCOL",
+		"text":
+		"Use the MagneticFreedom Bot's robotic arm and magnetic system to " +
+		"retrieve the stolen components.\n\n" +
+		"Transport every required box to the delivery zone.\n\n" +
+		"Stay alert. Plan your route. Avoid detection."
+	},
+
+	{
+		"title": "FIVE MISSIONS",
+		"text":
+		"The operation consists of five increasingly difficult missions.\n\n" +
+		"Each mission will require you to recover more components while " +
+		"working against the clock and avoiding the security bots.\n\n" +
+		"Complete all five missions.\n\n" +
+		"Recover the research.\n\n" +
+		"Bring Magnetic Freedom home."
+	}
+
+]
+
+
+# ==================================================
+# CURRENT PAGE
+# ==================================================
+
+var current_page: int = 0
+
+
+# ==================================================
+# READY
+# ==================================================
+
+func _ready():
+
+	# Story screen must work while game is paused
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	# Story must not automatically remain visible
+	hide()
+
+	# Connect button
+	next_button.pressed.connect(_on_next_button_pressed)
+
+	# Prepare first page
+	update_story()
+
+
+# ==================================================
+# SHOW STORY
+# ==================================================
+
+func show_story():
+
+	print("==============================")
+	print("SHOWING STORY")
+	print("==============================")
+
+	current_page = 0
+
+	# Keep game paused during story
+	get_tree().paused = true
+
+	# Hide normal HUD elements
+	hide_game_hud()
+
+	# Update story
+	update_story()
+
+	# Show story
+	show()
+
+
+# ==================================================
+# HIDE GAME HUD DURING STORY
+# ==================================================
+
+func hide_game_hud():
+
+	var hud = get_node_or_null("../HUD")
+
+	if hud == null:
+		return
+
+
+	# Hide level / boxes / time
+	var level_label = hud.get_node_or_null("LevelLabel")
+
+	if level_label != null:
+		level_label.hide()
+
+
+	# Hide mission message
+	var mission_message = hud.get_node_or_null("MissionMessage")
+
+	if mission_message != null:
+		mission_message.hide()
+
+
+	# Hide security warning
+	var security_warning = hud.get_node_or_null("SecurityWarning")
+
+	if security_warning != null:
+		security_warning.hide()
+
+
+	# Hide controls
+	var controls_panel = hud.get_node_or_null("ControlsPanel")
+
+	if controls_panel != null:
+		controls_panel.hide()
+
+
+	# Hide pause menu
+	var pause_menu = hud.get_node_or_null("PauseMenu")
+
+	if pause_menu != null:
+		pause_menu.hide()
+
+
+# ==================================================
+# SHOW GAME HUD AFTER STORY
+# ==================================================
+
+func show_game_hud():
+
+	var hud = get_node_or_null("../HUD")
+
+	if hud == null:
+		return
+
+
+	# Show level / boxes / time
+	var level_label = hud.get_node_or_null("LevelLabel")
+
+	if level_label != null:
+		level_label.show()
+
+
+	# Show controls
+	var controls_panel = hud.get_node_or_null("ControlsPanel")
+
+	if controls_panel != null:
+		controls_panel.show()
+
+
+# ==================================================
+# UPDATE STORY
+# ==================================================
+
+func update_story():
+
+	if current_page >= story_pages.size():
+		return
+
+
+	title.text = story_pages[current_page]["title"]
+
+	story_text.text = story_pages[current_page]["text"]
+
+
+	# ==================================================
+	# LAST PAGE
+	# ==================================================
+
+	if current_page == story_pages.size() - 1:
+
+		next_button.text = "START MISSION"
+
+	else:
+
+		next_button.text = "CONTINUE"
+
+
+# ==================================================
+# NEXT BUTTON
+# ==================================================
+
+func _on_next_button_pressed():
+
+	# Button sound
+	AudioManager.play_click()
+
+
+	current_page += 1
+
+
+	# ==================================================
+	# STORY FINISHED
+	# ==================================================
+
+	if current_page >= story_pages.size():
+
+		start_game()
+
+		return
+
+
+	# ==================================================
+	# NEXT STORY PAGE
+	# ==================================================
+
+	update_story()
+
+
+# ==================================================
+# START GAME
+# ==================================================
+
+func start_game():
+
+	print("==============================")
+	print("STORY COMPLETE")
+	print("STARTING MISSION")
+	print("==============================")
+
+
+	# ==================================================
+	# HIDE STORY
+	# ==================================================
+
+	hide()
+
+
+	# ==================================================
+	# FIND LEVEL MANAGER
+	# ==================================================
+
+	var level_manager = get_node_or_null("../LevelManager")
+
+
+	if level_manager == null:
+
+		print("==============================")
+		print("ERROR: LEVEL MANAGER NOT FOUND!")
+		print("==============================")
+
+		return
+
+
+	# ==================================================
+	# START LEVEL
+	# ==================================================
+	#
+	# THIS IS THE IMPORTANT PART.
+	#
+	# This initializes:
+	#
+	# time_left = level_time
+	# delivered_boxes = 0
+	# level_active = true
+	# mission_finished = false
+	#
+	# Therefore the timer can now run.
+	# ==================================================
+
+	level_manager.start_level()
+
+
+	# ==================================================
+	# SHOW GAME HUD
+	# ==================================================
+
+	show_game_hud()
+
+
+	# ==================================================
+	# UNPAUSE GAME
+	# ==================================================
+
+	get_tree().paused = false
+
+
+	print("==============================")
+	print("LEVEL ", level_manager.level_number, " ACTIVE")
+	print("TIMER STARTED: ", level_manager.time_left)
+	print("==============================")

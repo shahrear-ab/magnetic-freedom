@@ -15,6 +15,9 @@ func _physics_process(delta):
 
 		velocity = Vector3.ZERO
 
+		# Stop engine while controlling the arm
+		AudioManager.stop_engine()
+
 		move_and_slide()
 
 		return
@@ -33,6 +36,19 @@ func _physics_process(delta):
 		"turn_left",
 		"turn_right"
 	)
+
+
+	# ==================================================
+	# ENGINE SOUND
+	# ==================================================
+
+	if forward_input != 0:
+
+		AudioManager.start_engine()
+
+	else:
+
+		AudioManager.stop_engine()
 
 
 	# ==================================================

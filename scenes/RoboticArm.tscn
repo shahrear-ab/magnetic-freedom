@@ -24,11 +24,12 @@ size = Vector3(0.5, 1.8, 0.5)
 albedo_color = Color(0.23529412, 0.03529412, 0.7411765, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yqyos"]
-top_radius = 0.35
-bottom_radius = 0.35
+top_radius = 0.45
+bottom_radius = 0.45
 height = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_anhtn"]
+radius = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o4xs2"]
 albedo_color = Color(0, 0.6745098, 0.69803923, 0.39215687)
@@ -46,8 +47,8 @@ size = Vector3(0.5, 1.8, 0.5)
 albedo_color = Color(0, 0.58431375, 0.69803923, 0.39215687)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_egj8t"]
-top_radius = 1.0
-bottom_radius = 1.0
+top_radius = 0.9
+bottom_radius = 0.9
 height = 0.6
 
 [node name="RoboticArm" type="Node3D" unique_id=1266754801]
