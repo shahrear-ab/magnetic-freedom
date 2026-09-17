@@ -56,6 +56,23 @@ func _on_body_entered(body: Node3D) -> void:
 
 	# Remember this object
 	delivered_objects.append(body)
+	body.remove_from_group("pickupable")
+
+	if body is RigidBody3D:
+
+		var rigid_body := body as RigidBody3D
+
+		rigid_body.freeze = true
+		rigid_body.linear_velocity = Vector3.ZERO
+		rigid_body.angular_velocity = Vector3.ZERO
+
+		var collision_shape = body.get_node_or_null(
+			"CollisionShape3D"
+		) as CollisionShape3D
+
+		if collision_shape != null:
+
+			collision_shape.disabled = true
 
 	# Increase delivery count
 	delivered_count += 1

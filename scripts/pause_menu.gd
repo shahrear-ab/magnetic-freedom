@@ -10,6 +10,7 @@ extends Control
 @onready var start_button = $PausePanel/VBoxContainer/StartButton
 @onready var resume_button = $PausePanel/VBoxContainer/ResumeButton
 @onready var restart_button = $PausePanel/VBoxContainer/RestartButton
+@onready var start_from_level_one_button = $PausePanel/VBoxContainer/StartFromLevel1Button
 @onready var quit_button = $PausePanel/VBoxContainer/QuitButton
 
 
@@ -49,6 +50,9 @@ func _ready():
 	if not restart_button.pressed.is_connected(_on_restart_pressed):
 		restart_button.pressed.connect(_on_restart_pressed)
 
+	if not start_from_level_one_button.pressed.is_connected(_on_start_from_level_one_pressed):
+		start_from_level_one_button.pressed.connect(_on_start_from_level_one_pressed)
+
 	if not quit_button.pressed.is_connected(_on_quit_pressed):
 		quit_button.pressed.connect(_on_quit_pressed)
 
@@ -63,9 +67,6 @@ func _ready():
 
 		# Hide pause menu after restart
 		hide()
-
-		# Make sure game is running
-		get_tree().paused = false
 
 		# Start the newly loaded level
 		call_deferred("_start_restarted_level")
@@ -108,6 +109,7 @@ func _ready():
 
 	resume_button.hide()
 	restart_button.hide()
+	start_from_level_one_button.hide()
 
 
 	print("================================")
@@ -144,6 +146,7 @@ func _start_restarted_level():
 	# ==================================================
 
 	level_manager.start_level()
+	get_tree().paused = false
 
 
 	print("LEVEL TIMER RESET TO: ", level_manager.time_left)
@@ -268,6 +271,8 @@ func _input(event):
 func pause_game():
 
 	print("PAUSING GAME")
+	AudioManager.stop_engine()
+	AudioManager.stop_security_detect()
 
 
 	# Button / pause sound
@@ -280,6 +285,13 @@ func pause_game():
 
 	pause_title.text = "PAUSED"
 	pause_title.show()
+
+
+	# ==================================================
+	# RESET RESTART BUTTON TEXT
+	# ==================================================
+
+	restart_button.text = "RESTART CURRENT MISSION"
 
 
 	# ==================================================
@@ -296,6 +308,13 @@ func pause_game():
 	resume_button.show()
 	restart_button.show()
 	quit_button.show()
+
+
+	# ==================================================
+	# UPDATE START FROM LEVEL 1 VISIBILITY
+	# ==================================================
+
+	_update_start_from_level_one_visibility()
 
 
 	# ==================================================
@@ -359,6 +378,8 @@ func _on_restart_pressed():
 
 	# Button sound
 	AudioManager.play_click()
+	AudioManager.stop_engine()
+	AudioManager.stop_security_detect()
 
 
 	print("================================")
@@ -369,6 +390,17 @@ func _on_restart_pressed():
 	# ==================================================
 	# TELL THE NEW SCENE THIS IS A RESTART
 	# ==================================================
+
+	var level_manager = get_tree().get_first_node_in_group(
+		"level_manager"
+	)
+
+	if level_manager != null:
+
+		get_tree().set_meta(
+			"restarting_level_number",
+			level_manager.level_number
+		)
 
 	get_tree().set_meta(
 		"restarting_game",
@@ -427,6 +459,13 @@ func show_mission_failed():
 
 
 	# ==================================================
+	# UPDATE RESTART BUTTON TEXT
+	# ==================================================
+
+	restart_button.text = "RESTART CURRENT MISSION"
+
+
+	# ==================================================
 	# SHOW MENU
 	# ==================================================
 
@@ -443,6 +482,13 @@ func show_mission_failed():
 
 
 	# ==================================================
+	# UPDATE START FROM LEVEL 1 VISIBILITY
+	# ==================================================
+
+	_update_start_from_level_one_visibility()
+
+
+	# ==================================================
 	# HIDE
 	# ==================================================
 
@@ -455,6 +501,38 @@ func show_mission_failed():
 	# ==================================================
 
 	get_tree().paused = true
+
+
+# ==================================================
+# UPDATE START FROM LEVEL 1 VISIBILITY
+# ==================================================
+
+func _update_start_from_level_one_visibility():
+
+	var level_manager = get_tree().get_first_node_in_group(
+		"level_manager"
+	)
+
+
+	if level_manager == null:
+
+		print("WARNING: LevelManager not found!")
+		start_from_level_one_button.hide()
+
+		return
+
+
+	# ==================================================
+	# SHOW IF LEVEL > 1, HIDE IF LEVEL == 1
+	# ==================================================
+
+	if level_manager.level_number > 1:
+
+		start_from_level_one_button.show()
+
+	else:
+
+		start_from_level_one_button.hide()
 
 
 # ==================================================
@@ -485,7 +563,7 @@ func show_all_missions_complete():
 	# ==================================================
 
 	pause_title.show()
-	restart_button.show()
+	start_from_level_one_button.show()
 	quit_button.show()
 
 
@@ -495,6 +573,7 @@ func show_all_missions_complete():
 
 	start_button.hide()
 	resume_button.hide()
+	restart_button.hide()
 
 
 	# ==================================================
@@ -502,3 +581,62 @@ func show_all_missions_complete():
 	# ==================================================
 
 	get_tree().paused = true
+
+
+# ==================================================
+# START FROM LEVEL 1 BUTTON
+# ==================================================
+
+func _on_start_from_level_one_pressed():
+
+	# Button sound
+	AudioManager.play_click()
+	AudioManager.stop_engine()
+	AudioManager.stop_security_detect()
+
+
+	print("================================")
+	print("START FROM LEVEL 1 BUTTON PRESSED")
+	print("================================")
+
+
+	# ==================================================
+	# FIND LEVEL MANAGER
+	# ==================================================
+
+	var level_manager = get_tree().get_first_node_in_group(
+		"level_manager"
+	)
+
+
+	if level_manager == null:
+
+		print("WARNING: LevelManager not found!")
+
+		return
+
+
+	# ==================================================
+	# RESET TO LEVEL 1
+	# ==================================================
+
+	level_manager.reset_to_level_one()
+
+
+	# ==================================================
+	# HIDE MENU
+	# ==================================================
+
+	hide()
+
+
+	# ==================================================
+	# UNPAUSE GAME
+	# ==================================================
+
+	get_tree().paused = false
+
+
+	print("================================")
+	print("GAME RESET TO LEVEL 1")
+	print("================================")

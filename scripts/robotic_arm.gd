@@ -436,6 +436,10 @@ func find_closest_magnetic_object() -> Node3D:
 
 		var object_3d: Node3D = object
 
+		if not object_3d.is_visible_in_tree():
+
+			continue
+
 
 		# ==================================================
 		# GET MAGNET POINT

@@ -11,6 +11,12 @@ extends Node
 
 @export var total_levels: int = 5
 
+const BOX_IDS: Array[String] = [
+	"PickupObject",
+	"PickupObject2",
+	"PickupObject3"
+]
+
 
 # ==================================================
 # BOX STARTING POSITIONS
@@ -18,6 +24,15 @@ extends Node
 
 var box_start_positions: Dictionary = {}
 var box_start_rotations: Dictionary = {}
+var boxes_by_id: Dictionary = {}
+
+
+# ==================================================
+# PLAYER VEHICLE STARTING TRANSFORM
+# ==================================================
+
+var player_original_position: Vector3 = Vector3.ZERO
+var player_original_rotation: Vector3 = Vector3.ZERO
 
 
 # ==================================================
@@ -54,6 +69,15 @@ var timer_warning_played: bool = false
 
 func _ready():
 
+	if get_tree().has_meta("restarting_level_number"):
+
+		level_number = int(
+			get_tree().get_meta("restarting_level_number")
+		)
+		get_tree().remove_meta("restarting_level_number")
+
+		_apply_level_settings()
+
 	print("==============================")
 	print("LEVEL MANAGER READY")
 	print("LEVEL: ", level_number)
@@ -68,8 +92,30 @@ func _ready():
 
 	for box in get_tree().get_nodes_in_group("pickup_boxes"):
 
+		boxes_by_id[box.name] = box
 		box_start_positions[box] = box.global_position
 		box_start_rotations[box] = box.global_rotation
+
+
+	# ==================================================
+	# SAVE ORIGINAL PLAYER VEHICLE TRANSFORM
+	# ==================================================
+
+	var player_vehicle = get_tree().get_first_node_in_group(
+		"player_vehicle"
+	)
+
+	if player_vehicle != null:
+
+		player_original_position = player_vehicle.global_position
+		player_original_rotation = player_vehicle.global_rotation
+
+		print("PLAYER VEHICLE STARTING POSITION: ", player_original_position)
+		print("PLAYER VEHICLE STARTING ROTATION: ", player_original_rotation)
+
+	else:
+
+		print("WARNING: Player vehicle not found in player_vehicle group!")
 
 
 	# ==================================================
@@ -117,14 +163,14 @@ func start_level():
 	# RESET ALL PICKUP BOXES
 	# ==================================================
 
-	var boxes = get_tree().get_nodes_in_group(
-		"pickup_boxes"
-	)
+	for i in range(BOX_IDS.size()):
 
+		var box = boxes_by_id.get(BOX_IDS[i]) as Node3D
 
-	for i in range(boxes.size()):
+		if box == null or not is_instance_valid(box):
 
-		var box = boxes[i]
+			print("WARNING: Pickup box not found: ", BOX_IDS[i])
+			continue
 
 
 		# ==================================================
@@ -150,21 +196,39 @@ func start_level():
 
 
 		# ==================================================
-		# SHOW / HIDE BOXES + COLLISION
+		# Activate boxes by stable identity, never group-array order.
 		# ==================================================
 
-		if i < required_boxes:
-			
-			# Required box
+		var box_is_active = i < required_boxes
+
+		if box_is_active:
+
 			box.show()
-			
+			box.add_to_group("pickupable")
 
 		else:
 
-			# Unrequired box
 			box.hide()
-			
+			box.remove_from_group("pickupable")
 
+
+		if box is RigidBody3D:
+
+			var rigid_body := box as RigidBody3D
+
+			rigid_body.freeze = true
+			rigid_body.linear_velocity = Vector3.ZERO
+			rigid_body.angular_velocity = Vector3.ZERO
+
+			var collision_shape = box.get_node_or_null(
+				"CollisionShape3D"
+			) as CollisionShape3D
+
+			if collision_shape != null:
+
+				collision_shape.disabled = not box_is_active
+
+			rigid_body.freeze = not box_is_active
 
 
 	# ==================================================
@@ -300,6 +364,8 @@ func complete_level():
 
 	mission_finished = true
 	level_active = false
+	AudioManager.stop_engine()
+	AudioManager.stop_security_detect()
 
 
 	print("")
@@ -376,36 +442,7 @@ func complete_level():
 func start_next_level():
 
 	level_number += 1
-
-
-	# ==================================================
-	# LEVEL SETTINGS
-	# ==================================================
-
-	match level_number:
-
-		2:
-
-			level_time = 150.0
-			required_boxes = 2
-
-
-		3:
-
-			level_time = 140.0
-			required_boxes = 2
-
-
-		4:
-
-			level_time = 120.0
-			required_boxes = 3
-
-
-		5:
-
-			level_time = 100.0
-			required_boxes = 3
+	_apply_level_settings()
 
 
 	# ==================================================
@@ -413,6 +450,40 @@ func start_next_level():
 	# ==================================================
 
 	start_level()
+
+
+# ==================================================
+# APPLY LEVEL SETTINGS
+# ==================================================
+
+func _apply_level_settings():
+
+	match level_number:
+
+		1:
+
+			level_time = 180.0
+			required_boxes = 1
+
+		2:
+
+			level_time = 150.0
+			required_boxes = 2
+
+		3:
+
+			level_time = 140.0
+			required_boxes = 2
+
+		4:
+
+			level_time = 120.0
+			required_boxes = 3
+
+		5:
+
+			level_time = 100.0
+			required_boxes = 3
 
 
 # ==================================================
@@ -428,6 +499,8 @@ func fail_level(reason: String):
 
 	mission_finished = true
 	level_active = false
+	AudioManager.stop_engine()
+	AudioManager.stop_security_detect()
 
 
 	# ==================================================
@@ -451,3 +524,84 @@ func fail_level(reason: String):
 	# ==================================================
 
 	pause_menu.show_mission_failed()
+
+
+# ==================================================
+# RESET TO LEVEL 1
+# ==================================================
+
+func reset_to_level_one():
+
+	print("")
+	print("==============================")
+	print("RESETTING TO LEVEL 1")
+	print("==============================")
+	print("")
+
+
+	# ==================================================
+	# RESET LEVEL NUMBER
+	# ==================================================
+
+	level_number = 1
+
+
+	# ==================================================
+	# APPLY LEVEL 1 SETTINGS
+	# ==================================================
+
+	_apply_level_settings()
+
+
+	# ==================================================
+	# RESET STATE
+	# ==================================================
+
+	time_left = 0.0
+	delivered_boxes = 0
+	level_active = false
+	mission_finished = false
+	timer_warning_played = false
+
+
+	# ==================================================
+	# RESET PLAYER VEHICLE TO ORIGINAL POSITION
+	# ==================================================
+
+	var player_vehicle = get_tree().get_first_node_in_group(
+		"player_vehicle"
+	)
+
+	if player_vehicle != null:
+
+		print("RESETTING PLAYER VEHICLE TRANSFORM")
+
+		# Reset position
+		player_vehicle.global_position = player_original_position
+
+		# Reset rotation
+		player_vehicle.global_rotation = player_original_rotation
+
+		# Reset velocity if it's a physics body
+		if player_vehicle.has_method("set_velocity") or "velocity" in player_vehicle:
+
+			player_vehicle.velocity = Vector3.ZERO
+
+			print("PLAYER VELOCITY RESET")
+
+	else:
+
+		print("WARNING: Player vehicle not found when resetting to Level 1!")
+
+
+	# ==================================================
+	# START LEVEL 1
+	# ==================================================
+
+	start_level()
+
+
+	print("==============================")
+	print("LEVEL 1 STARTED")
+	print("==============================")
+	print("")

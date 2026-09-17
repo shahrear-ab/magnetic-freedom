@@ -243,34 +243,35 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.25490198)
 
 [node name="PausePanel" type="Panel" parent="HUD/PauseMenu" unique_id=1452702739]
-custom_minimum_size = Vector2(350, 250)
+custom_minimum_size = Vector2(380, 320)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -125.0
-offset_right = 150.0
-offset_bottom = 125.0
+offset_left = -190.0
+offset_top = -160.0
+offset_right = 190.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/PausePanel" unique_id=1596678409]
-custom_minimum_size = Vector2(300, 250)
+custom_minimum_size = Vector2(340, 280)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 
 [node name="PauseTitle" type="Label" parent="HUD/PauseMenu/PausePanel/VBoxContainer" unique_id=1384312194]
 layout_mode = 2
@@ -288,6 +289,10 @@ text = "RESUME"
 [node name="RestartButton" type="Button" parent="HUD/PauseMenu/PausePanel/VBoxContainer" unique_id=454933675]
 layout_mode = 2
 text = "RESTART"
+
+[node name="StartFromLevel1Button" type="Button" parent="HUD/PauseMenu/PausePanel/VBoxContainer" unique_id=478513281]
+layout_mode = 2
+text = "START FROM LEVEL 1"
 
 [node name="QuitButton" type="Button" parent="HUD/PauseMenu/PausePanel/VBoxContainer" unique_id=478513280]
 layout_mode = 2

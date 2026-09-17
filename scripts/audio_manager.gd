@@ -60,6 +60,25 @@ func _ready():
 
 
 	# ==================================================
+	# ENABLE MUSIC LOOPING
+	# ==================================================
+
+	if music_player.stream:
+
+		# For AudioStreamOggVorbis and other stream types in Godot 4.7
+		# use the 'loop' boolean property
+		if music_player.stream.has_meta("loop") or "loop" in music_player.stream:
+
+			music_player.stream.loop = true
+
+			print("MUSIC LOOPING ENABLED")
+
+		else:
+
+			print("WARNING: Audio stream does not support loop property")
+
+
+	# ==================================================
 	# ENGINE
 	# ==================================================
 
