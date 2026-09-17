@@ -27,9 +27,9 @@ var story_pages = [
 		"\nSome valuable components have been stolen from BUET Robotics Society’s secret research project.\n\n" +
 		"Deep inside a restricted industrial facility, those " +
 		"valuable parts from the secret research project are being held by a " +
-		"corporate group determined to stop the reasearch project from reaching the public.\n\n" +
+		"corporate group determined to stop the research project from reaching the public.\n\n" +
 		"The research was never meant for profit.\n" +
-		"It was being developed intended to serve society.",
+		"It was being developed to serve society.",
 
 		"image1": preload("res://assets/story/page1_1.png"),
 		"image2": preload("res://assets/story/page1_2.png")
@@ -116,7 +116,7 @@ func _ready():
 	# STORY SCREEN MUST NOT APPEAR AUTOMATICALLY
 	# ==================================================
 
-	hide()
+	visible = false
 
 
 	# ==================================================

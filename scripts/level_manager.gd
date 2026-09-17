@@ -150,16 +150,21 @@ func start_level():
 
 
 		# ==================================================
-		# SHOW REQUIRED BOXES
+		# SHOW / HIDE BOXES + COLLISION
 		# ==================================================
 
 		if i < required_boxes:
-
+			
+			# Required box
 			box.show()
+			
 
 		else:
 
+			# Unrequired box
 			box.hide()
+			
+
 
 
 	# ==================================================

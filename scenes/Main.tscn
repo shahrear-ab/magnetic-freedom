@@ -380,8 +380,6 @@ environment = SubResource("Environment_anhtn")
 material_override = SubResource("StandardMaterial3D_ebg2g")
 mesh = SubResource("PlaneMesh_anhtn")
 
-[node name="StoryScreen" parent="." unique_id=1430951001 instance=ExtResource("11_wp0k4")]
-
 [node name="Node3D" type="Node3D" parent="." unique_id=1840548197]
 
 [node name="boxes" parent="Node3D" unique_id=1614529863 instance=ExtResource("12_qmy6f")]
@@ -455,13 +453,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0381641, -3.8146973e-06, 4
 [node name="Root Scene9" parent="Node3D" unique_id=1318226300 instance=ExtResource("21_1iba3")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 11.777453, 0, 41.894974)
 
-[node name="Root Scene" parent="." unique_id=1574777266 instance=ExtResource("12_qmy6f")]
+[node name="Root Scene10" parent="Node3D" unique_id=1574777266 instance=ExtResource("12_qmy6f")]
 transform = Transform3D(0.86199266, 0, -0.50692075, 0, 1, 0, 0.50692075, 0, 0.86199266, 22.790934, 1.9073486e-06, 43.8052)
 
-[node name="Root Scene2" parent="." unique_id=1473274970 instance=ExtResource("12_qmy6f")]
+[node name="Root Scene11" parent="Node3D" unique_id=1473274970 instance=ExtResource("12_qmy6f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.483156, 0, -34.92474)
 
-[node name="Root Scene3" parent="." unique_id=415459977 instance=ExtResource("12_qmy6f")]
+[node name="Root Scene12" parent="Node3D" unique_id=415459977 instance=ExtResource("12_qmy6f")]
 transform = Transform3D(0.66494435, 0, -0.74689287, 0, 1, 0, 0.74689287, 0, 0.66494435, 39.306984, 0, -13.656368)
+
+[node name="StoryScreen" parent="." unique_id=1430951001 instance=ExtResource("11_wp0k4")]
 
 [connection signal="body_entered" from="DeliveryZone/Area3D" to="DeliveryZone/Area3D" method="_on_body_entered"]
