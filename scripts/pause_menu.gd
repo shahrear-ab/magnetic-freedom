@@ -27,6 +27,16 @@ func _ready():
 
 
 	# ==================================================
+	# TITLE FONT SIZE
+	# ==================================================
+
+	pause_title.add_theme_font_size_override(
+		"font_size",
+		32
+	)
+
+
+	# ==================================================
 	# CONNECT BUTTONS
 	# ==================================================
 
@@ -57,25 +67,8 @@ func _ready():
 		# Make sure game is running
 		get_tree().paused = false
 
-
-		# ==================================================
-		# START THE NEW LEVEL
-		# ==================================================
-		#
-		# The new LevelManager starts with:
-		#
-		# time_left = 0
-		# level_active = false
-		#
-		# So we explicitly call start_level().
-		#
-		# call_deferred() is important because we want
-		# to wait until the newly reloaded scene has
-		# completely initialized.
-		# ==================================================
-
+		# Start the newly loaded level
 		call_deferred("_start_restarted_level")
-
 
 		print("================================")
 		print("GAME RESTARTED")
@@ -93,13 +86,26 @@ func _ready():
 	show()
 
 
+	# ==================================================
+	# INITIAL TITLE
+	# ==================================================
+
+	pause_title.text = "MAGNETIC FREEDOM"
+	pause_title.show()
+
+
+	# ==================================================
 	# SHOW
+	# ==================================================
+
 	start_button.show()
 	quit_button.show()
 
 
+	# ==================================================
 	# HIDE
-	pause_title.hide()
+	# ==================================================
+
 	resume_button.hide()
 	restart_button.hide()
 
@@ -133,7 +139,10 @@ func _start_restarted_level():
 	print("================================")
 
 
-	# Start the level properly
+	# ==================================================
+	# START LEVEL AGAIN
+	# ==================================================
+
 	level_manager.start_level()
 
 
@@ -149,7 +158,7 @@ func _start_restarted_level():
 
 func _on_start_pressed():
 
-	# 🔊 BUTTON CLICK
+	# Button sound
 	AudioManager.play_click()
 
 
@@ -177,10 +186,8 @@ func _on_start_pressed():
 
 		print("STORY SCREEN FOUND")
 
-
-		# Story must be able to work while paused
+		# Story must work while paused
 		story_screen.process_mode = Node.PROCESS_MODE_ALWAYS
-
 
 		story_screen.show_story()
 
@@ -191,7 +198,10 @@ func _on_start_pressed():
 		print("Starting game without story.")
 
 
-		# Start the level even if story is missing
+		# ==================================================
+		# START LEVEL DIRECTLY
+		# ==================================================
+
 		var level_manager = get_tree().get_first_node_in_group(
 			"level_manager"
 		)
@@ -202,6 +212,7 @@ func _on_start_pressed():
 			level_manager.start_level()
 
 
+		# Unpause game
 		get_tree().paused = false
 
 
@@ -225,10 +236,13 @@ func _input(event):
 			if get_tree().paused:
 
 				# Don't resume after:
+				#
 				# - Initial START screen
 				# - Mission Failed
 				# - All Missions Completed
 				# - Story Screen
+				#
+				# These screens don't have Resume visible.
 
 				if not resume_button.visible:
 
@@ -256,21 +270,38 @@ func pause_game():
 	print("PAUSING GAME")
 
 
-	# 🔊 PAUSE SOUND
+	# Button / pause sound
 	AudioManager.play_pause()
 
+
+	# ==================================================
+	# TITLE
+	# ==================================================
+
+	pause_title.text = "PAUSED"
+	pause_title.show()
+
+
+	# ==================================================
+	# SHOW MENU
+	# ==================================================
 
 	show()
 
 
+	# ==================================================
 	# SHOW
-	pause_title.show()
+	# ==================================================
+
 	resume_button.show()
 	restart_button.show()
 	quit_button.show()
 
 
+	# ==================================================
 	# HIDE
+	# ==================================================
+
 	start_button.hide()
 
 
@@ -293,12 +324,15 @@ func resume_game():
 	print("RESUMING GAME")
 
 
-	# 🔊 PAUSE / RESUME SOUND
+	# Pause / resume sound
 	AudioManager.play_pause()
 
 
+	# Resume game
 	get_tree().paused = false
 
+
+	# Hide pause menu
 	hide()
 
 
@@ -311,7 +345,7 @@ func resume_game():
 
 func _on_resume_pressed():
 
-	# 🔊 BUTTON CLICK
+	# Button sound
 	AudioManager.play_click()
 
 	resume_game()
@@ -323,7 +357,7 @@ func _on_resume_pressed():
 
 func _on_restart_pressed():
 
-	# 🔊 BUTTON CLICK
+	# Button sound
 	AudioManager.play_click()
 
 
@@ -333,7 +367,7 @@ func _on_restart_pressed():
 
 
 	# ==================================================
-	# TELL THE NEW SCENE THAT THIS IS A RESTART
+	# TELL THE NEW SCENE THIS IS A RESTART
 	# ==================================================
 
 	get_tree().set_meta(
@@ -362,7 +396,7 @@ func _on_restart_pressed():
 
 func _on_quit_pressed():
 
-	# 🔊 BUTTON CLICK
+	# Button sound
 	AudioManager.play_click()
 
 	print("QUITTING GAME")
@@ -385,19 +419,33 @@ func show_mission_failed():
 	print("SHOWING MISSION FAILED SCREEN")
 
 
-	show()
-
+	# ==================================================
+	# TITLE
+	# ==================================================
 
 	pause_title.text = "MISSION FAILED"
 
 
+	# ==================================================
+	# SHOW MENU
+	# ==================================================
+
+	show()
+
+
+	# ==================================================
 	# SHOW
+	# ==================================================
+
 	pause_title.show()
 	restart_button.show()
 	quit_button.show()
 
 
+	# ==================================================
 	# HIDE
+	# ==================================================
+
 	start_button.hide()
 	resume_button.hide()
 
@@ -418,19 +466,33 @@ func show_all_missions_complete():
 	print("SHOWING ALL MISSIONS COMPLETE SCREEN")
 
 
-	show()
-
+	# ==================================================
+	# TITLE
+	# ==================================================
 
 	pause_title.text = "ALL MISSIONS COMPLETED!"
 
 
+	# ==================================================
+	# SHOW MENU
+	# ==================================================
+
+	show()
+
+
+	# ==================================================
 	# SHOW
+	# ==================================================
+
 	pause_title.show()
 	restart_button.show()
 	quit_button.show()
 
 
+	# ==================================================
 	# HIDE
+	# ==================================================
+
 	start_button.hide()
 	resume_button.hide()
 

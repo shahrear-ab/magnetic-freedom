@@ -69,13 +69,19 @@ size = Vector2(100, 100)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1043262350]
-transform = Transform3D(0.8660254, 0.28678823, -0.40957603, 0, 0.81915206, 0.57357645, 0.5, -0.49673176, 0.7094065, 0, 19.356438, 4.2273293)
+transform = Transform3D(0.8660254, 0.28678823, -0.40957603, 0, 0.81915206, 0.57357645, 0.5, -0.49673176, 0.7094065, -2.2, 63.6, -6.4)
+shadow_enabled = true
+shadow_bias = 0.03
+shadow_normal_bias = 0.5
+shadow_blur = 0.2
+directional_shadow_max_distance = 50.0
 
 [node name="PlayerVehicle" parent="." unique_id=1090934575 groups=["player_vehicle"] instance=ExtResource("1_elqb8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.265, 0.7, 11.659)
 
 [node name="Camera" type="Camera3D" parent="PlayerVehicle" unique_id=636648059]
-transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, -1.8687315, 6.010294, 3.9975548)
+transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, -1, 5.5, 7)
+fov = 68.0
 
 [node name="DeliveryZone" type="Area3D" parent="." unique_id=88359160 groups=["delivery_zone"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.594, 0.08, 17.965)
@@ -237,7 +243,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.25490198)
 
 [node name="PausePanel" type="Panel" parent="HUD/PauseMenu" unique_id=1452702739]
-custom_minimum_size = Vector2(300, 250)
+custom_minimum_size = Vector2(350, 250)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -330,10 +336,10 @@ M + W/A/S/D      Move Magnet"
 [node name="pickup_boxes" type="Node" parent="." unique_id=127735330]
 
 [node name="PickupObject" parent="pickup_boxes" unique_id=765094423 instance=ExtResource("7_q8u5g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.725725, 1.0529981, -16.860048)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.726, 0.7, -16.86)
 
 [node name="PickupObject2" parent="pickup_boxes" unique_id=1430585326 instance=ExtResource("7_q8u5g")]
-transform = Transform3D(0.49090376, 0.8712138, 3.8081964e-08, 0, -4.371139e-08, 1, 0.8712138, -0.49090376, -2.1458085e-08, -5.171447, 0.6000004, 16.931961)
+transform = Transform3D(0.49090376, 0.8712138, 3.8081964e-08, 0, -4.371139e-08, 1, 0.8712138, -0.49090376, -2.1458085e-08, -5.171, 0.7, 16.932)
 
 [node name="PickupObject3" parent="pickup_boxes" unique_id=2070712310 instance=ExtResource("7_q8u5g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.983185, 0.6000004, 5.1310744)

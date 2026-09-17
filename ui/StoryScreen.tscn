@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://lamo3n3a2bgy" path="res://scripts/story_screen.gd" id="1_a5ppl"]
 
 [node name="StoryScreen" type="Control" unique_id=1430951001]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,6 +39,23 @@ text = "OPERATION: MAGNETIC FREEDOM"
 layout_mode = 2
 size_flags_vertical = 3
 scroll_active = false
+
+[node name="ImageContainer" type="HBoxContainer" parent="StoryContainer" unique_id=1278930334]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Image1" type="TextureRect" parent="StoryContainer/ImageContainer" unique_id=188939958]
+custom_minimum_size = Vector2(350, 180)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Image2" type="TextureRect" parent="StoryContainer/ImageContainer" unique_id=805641657]
+custom_minimum_size = Vector2(350, 180)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="NextButton" type="Button" parent="StoryContainer" unique_id=322439062]
 layout_mode = 2
